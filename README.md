@@ -6,12 +6,13 @@
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.00722-b31b1b?style=flat-square)](https://arxiv.org/abs/2604.00722)
 [![EMNLP 2026](https://img.shields.io/badge/EMNLP-2026%20Main-blueviolet?style=flat-square)](https://arxiv.org/abs/2604.00722)
+[![Docs](https://img.shields.io/badge/Tutorial-readthedocs-8CA1AF?style=flat-square&logo=readthedocs&logoColor=white)](https://langmarl-tutorial.readthedocs.io/)
 
 <p align="center">
   <a href="https://github.com/DaRL-GenAI/LangMARL"><img src="https://img.shields.io/github/stars/DaRL-GenAI/LangMARL?style=for-the-badge&logo=github&logoColor=white&color=red" alt="GitHub Stars"></a>
 </p>
 
-[**Quick Start**](#quick-start) · [**Key Components**](#key-components) · [**Environments**](#environments) · [**Citation**](#citation) · [**FAQ**](#faq)
+[**Quick Start**](#quick-start) · [**Tutorial**](https://langmarl-tutorial.readthedocs.io/) · [**Key Components**](#key-components) · [**Environments**](#environments) · [**Citation**](#citation) · [**FAQ**](#faq)
 
 </div>
 
@@ -173,6 +174,21 @@ langmarl train --config configs/overcooked/cramped_room_central_credit.json
 ```
 
 The `scripts/run_*.sh` wrappers do the same thing from the repo root.
+
+---
+
+## Tutorial
+
+A full tutorial lives at
+**[langmarl-tutorial.readthedocs.io](https://langmarl-tutorial.readthedocs.io/)**.
+It covers the same library at more length than this README:
+
+| Page | Contents |
+|---|---|
+| [Quickstart](https://langmarl-tutorial.readthedocs.io/en/latest/quickstart.html) | Installation, training from a config file or programmatically, and what a run writes to disk |
+| [Training](https://langmarl-tutorial.readthedocs.io/en/latest/training.html) | Choosing a paradigm, every config field, mixing models across roles, resuming, token and cost tracking, callbacks |
+| [Environments](https://langmarl-tutorial.readthedocs.io/en/latest/environments.html) | The three built-in environments and how to register your own |
+| [API Reference](https://langmarl-tutorial.readthedocs.io/en/latest/api.html) | Entry points, configuration, core abstractions, LLM client, storage |
 
 ---
 
