@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- You should coordinate with another player to cook and server onions."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- You should coordinate with Player 0 to prepare and serve soup."
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-09T07:26:45.374458",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Focus on coordinating with Player 1 to ensure a steady supply of onions and dishes for effective soup delivery.\n- Prioritize timing your actions to align with Player 1's resource provision, anticipating when dishes will be available for immediate delivery.\n- Actively communicate with Player 1 to synchronize efforts, minimizing downtime and maximizing efficiency in the cooking and delivery process.\n- When holding onions, prepare to fill dishes as soon as they are available, ensuring that you are ready to deliver soup without delay.\n- Continuously assess the state of the kitchen and adapt your actions based on Player 1's contributions to optimize overall team performance."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize passing onions and dishes to Player 0 as soon as they are available to avoid bottlenecks.\n- Utilize the counters effectively to facilitate quicker resource sharing with Player 0.\n- Improve coordination by anticipating Player 0's needs and aligning actions with their timing requirements.\n- Focus on timely communication to ensure that resources are passed without unnecessary delays, enhancing the overall efficiency of soup delivery."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 120.0,
+        "rewards": [
+          160,
+          160,
+          40
+        ],
+        "min_reward": 40,
+        "max_reward": 160,
+        "input_tokens": 162595,
+        "output_tokens": 135155,
+        "total_tokens": 297750,
+        "cost_usd": 0.10548225,
+        "textgrad_estimated_tokens": 122476,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-09T11:46:13.370482",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize effective coordination with Player 1 to enhance resource provision, ensuring timely access to dishes and onions for optimal soup delivery.\n- Strengthen communication through actions to anticipate resource needs, allowing for better timing in filling dishes and delivering soup.\n- Focus on managing the timing of actions to align with Player 1's resource availability, ensuring that Player 0 is ready to fill dishes immediately after they become available.\n- Consider holding off on picking up onions if it delays the delivery of soup, instead prioritizing actions that facilitate immediate delivery once the soup is cooked."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize passing onions and dishes to Player 0 immediately upon availability, ensuring that resources are aligned with Player 0's cooking needs to enhance the efficiency of soup delivery.\n- Focus on improving timing and decision-making regarding resource management to prevent bottlenecks. This includes anticipating Player 0's requirements and passing resources at critical moments to facilitate seamless cooking and delivery.\n- Engage in proactive coordination with Player 0 to ensure that they have the necessary resources when needed, thereby minimizing delays and maximizing the team's overall performance in soup delivery."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 93.33333333333333,
+        "rewards": [
+          40,
+          120,
+          120
+        ],
+        "min_reward": 40,
+        "max_reward": 120,
+        "input_tokens": 334342,
+        "output_tokens": 284892,
+        "total_tokens": 619234,
+        "cost_usd": 0.22108649999999996,
+        "textgrad_estimated_tokens": 126858,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

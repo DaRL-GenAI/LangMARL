@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 0,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- You should coordinate with another player to cook and server onions.\n- You should schedule the work efficiently: when the pot is not full, you should place onions; when a pot is cooked, immediately use a dish to deliver.\n- You should note that only you can interact with the pots to add onions or fill dishes with soup. Player 2 cannot access the pots directly and can only pass items to you via the three counters.\n- Only after you fill a dish with soup and complete the delivery will the pot become empty, allowing you to begin preparing the next batch of soup. If both pots are currently cooking, you can only pick up dishes or wait; you cannot pick up onions or add onions to any pot."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- You should coordinate with another player to cook and server onions.\n- As the provider of onions and dishes, Player 1 should efficiently schedule Player 0’s work: when both pots are not full, Player 1 should place onions on the counter to fill the pots first; when one pot is cooked or about to be cooked, Player 1 should place one dish, with each dish corresponding to one cooked pot.\n- Please note that all items on the counter can be accessed by Player 0. Before making any decisions, you should first determine whether the items on the counter are sufficient for Player 0’s use.\n- When you are holding a dish or an onion, your next available action is limited to placing it on the counter.\n- Before picking up additional dishes or onions, please first check whether the items already placed on the counters are sufficient to meet Player 0’s cooking requirements. If they are sufficient, it is preferable to wait for a few steps rather than acquiring extra items, as doing so may unnecessarily occupy the limited counter space."
+      }
+    }
+  }
+}

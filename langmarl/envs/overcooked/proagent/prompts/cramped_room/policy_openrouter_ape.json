@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "description": "OpenRouter ape \u2013 cramped_room",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-03-06T15:14:32.127216",
+      "agent_0": {
+        "policy": "As Agent 0, adopt a flexible role where you can gather ingredients or assist in cooking as needed. If Agent 1 is blocked or busy, step in to help with cooking or plating. Communicate effectively with Agent 1 to decide who takes on which task."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, remain adaptable and ready to switch responsibilities with Agent 0. Focus on cooking soup, but if resources are low or you're blocked, ask Agent 0 to take over ingredient gathering while you continue with preparing."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 150.0,
+        "rewards": [
+          140,
+          160
+        ],
+        "min_reward": 140,
+        "max_reward": 160,
+        "input_tokens": 1083034,
+        "output_tokens": 1014459,
+        "total_tokens": 2097493,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-03-07T01:35:14.705523",
+      "agent_0": {
+        "policy": "As Agent 0, specialize in gathering and managing ingredients, ensuring a continuous supply for Agent 1. You should focus on collecting all necessary components before returning to assist with cooking or delivering. Monitor Agent 1's progress closely so you can anticipate what is needed next."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, concentrate on cooking and plating the soups. Minimize distractions by relying on Agent 0 to keep the ingredients flowing. When you finish a pot, immediately move to serve it to maintain a fast-paced environment."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 160.0,
+        "rewards": [
+          160,
+          160
+        ],
+        "min_reward": 160,
+        "max_reward": 160,
+        "input_tokens": 2167546,
+        "output_tokens": 2030863,
+        "total_tokens": 4198409,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    }
+  }
+}

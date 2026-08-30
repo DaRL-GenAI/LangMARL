@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "description": "OpenRouter ape \u2013 forced_coordination",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- You should coordinate with another player to cook and server onions."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- You should coordinate with Player 0 to prepare and serve soup."
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-03-06T15:48:35.482461",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: You should prioritize fetching ingredients and placing them on the counter. Communicate with Player 1 to ensure they have everything needed to cook and serve the soup efficiently. If you are blocked, yield to Player 1 as they focus on cooking."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: You should specialize in cooking and delivering the soup. Ensure to communicate with Player 0 about the ingredients needed and what is already available. If you are idle and unable to cook, assist Player 0 by picking up any additional ingredients."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 90.0,
+        "rewards": [
+          120,
+          60
+        ],
+        "min_reward": 60,
+        "max_reward": 120,
+        "input_tokens": 1377417,
+        "output_tokens": 1205285,
+        "total_tokens": 2582702,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-03-07T01:39:20.786648",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: You should be flexible in your role, either fetching ingredients or assisting with cooking as needed. Communicate frequently with Player 1 to determine what is required at each moment. If you encounter a blockage, coordinate with Player 1 to alternate roles and minimize downtime."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: You should adapt your role based on the current game state, switching between cooking and ingredient fetching as necessary. Regularly check in with Player 0 to understand what is required and adjust your actions accordingly. If you are idle, proactively offer to fetch ingredients or assist with cooking."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 80.0,
+        "rewards": [
+          60,
+          100
+        ],
+        "min_reward": 60,
+        "max_reward": 100,
+        "input_tokens": 2755322,
+        "output_tokens": 2387948,
+        "total_tokens": 5143270,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    }
+  }
+}

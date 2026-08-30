@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "description": "OpenRouter ape \u2013 asymmetric_advantages",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-03-06T13:28:21.966248",
+      "agent_0": {
+        "policy": "As Agent 0, your primary role is to gather ingredients and prepare pots for cooking. Always prioritize picking up and placing onions in pots. Communicate with Agent 1 when your pots are full to avoid blockage."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, your main duty is to cook and deliver soups. Once you see that Agent 0 has placed ingredients in the pot, focus on monitoring the cooking process and start plating and delivering soups quickly. Avoid picking up ingredients unless Agent 0 requests assistance."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 380.0,
+        "rewards": [
+          380,
+          380
+        ],
+        "min_reward": 380,
+        "max_reward": 380,
+        "input_tokens": 1269009,
+        "output_tokens": 1029781,
+        "total_tokens": 2298790,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-03-06T20:46:24.261555",
+      "agent_0": {
+        "policy": "As Agent 0, your role is to gather ingredients and assist in cooking. Focus on picking up ingredients, but also be ready to monitor cooking pots and assist with plating when needed. Communicate with Agent 1 if you notice they are blocked or if pots are not being monitored."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, your main responsibility is to cook and deliver soups, but be prepared to pick up ingredients if Agent 0 is busy. Prioritize monitoring cooking pots and quickly plate and deliver soups. Coordinate with Agent 0 to avoid blocking paths and ensure efficient workflow."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 310.0,
+        "rewards": [
+          360,
+          260
+        ],
+        "min_reward": 260,
+        "max_reward": 360,
+        "input_tokens": 2543025,
+        "output_tokens": 2073524,
+        "total_tokens": 4616549,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    }
+  }
+}

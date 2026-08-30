@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 1,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-18T06:20:01.530442",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n- Focus on delivering soup while ensuring effective resource management and coordination with Player 1.\n- Strengths: Player 0 demonstrates a solid understanding of the cooking process by effectively filling dishes with soup when pots are ready.\n- Contribution Weaknesses: Player 0 should prioritize ensuring pots are adequately stocked with onions before filling dishes, as this is critical for timely soup preparation. Avoid actions that lead to wasted efforts, such as attempting to access the Onion Dispenser when it is not feasible.\n- Coordination: Player 0 must improve their timing and awareness of Player 1's actions. They should wait for Player 1 to pass items or clear the counter before acting, which will enhance overall efficiency.\n- Credit/Blame: While Player 0's contributions to soup delivery are generally feasible, they should be held accountable for missed opportunities to optimize their actions and coordinate better with Player 1. The lack of communication and team dynamics also contributed to these missed opportunities.\n- Specific Improvements: Player 0 should assess the state of pots regularly and prioritize actions that ensure they are filled with onions before attempting to fill dishes. Additionally, they should utilize wait actions to allow Player 1 to catch up or prepare resources, and communicate readiness for delivery or resource collection through their actions."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Player 1 should prioritize gathering onions while maintaining awareness of the overall kitchen state and Player 0's needs. They should effectively utilize the onion dispenser and pass items via the counter to facilitate smoother operations. To enhance coordination, Player 1 must time their actions to avoid conflicts with Player 0, particularly when both players are accessing the same resources. They should consider waiting for Player 0 to fill dishes before gathering more onions, ensuring that both players work towards the same goal efficiently. Additionally, Player 1 could benefit from anticipating when Player 0 will need more onions, allowing for smoother transitions and more efficient soup delivery."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 266.6666666666667,
+        "rewards": [
+          260,
+          240,
+          300
+        ],
+        "min_reward": 240,
+        "max_reward": 300,
+        "input_tokens": 345229,
+        "output_tokens": 286116,
+        "total_tokens": 631345,
+        "cost_usd": 0.22345394999999998,
+        "textgrad_estimated_tokens": 218013,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

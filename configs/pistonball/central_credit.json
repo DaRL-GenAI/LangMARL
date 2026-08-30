@@ -1,0 +1,16 @@
+{
+  "env": "pistonball",
+  "exp_name": "pistonball_central_credit",
+  "paradigm": "central_credit",
+  "num_pistons": 20,
+  "num_agents": 20,
+  "max_cycles": 900,
+  "action_mode": "discrete",
+  "num_iterations": 5,
+  "trajectories_per_iteration": 3,
+  "max_workers": 1,
+  "experiment_dir": "./experiments",
+  "checkpoint_dir": "./ckpt_policy",
+  "llm": "gpt-4o-mini",
+  "log_level": "INFO"
+}

@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "description": "OpenRouter ape \u2013 coordination_ring",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-03-06T12:17:07.067802",
+      "agent_0": {
+        "policy": "Be adaptable in your role; pickup ingredients when needed, but switch to cooking if Agent 1 is blocked. Always communicate your next action clearly to Agent 1 to maintain a seamless workflow."
+      },
+      "agent_1": {
+        "policy": "You have the flexibility to take on any role, whether it's gathering ingredients, cooking, or delivering. If you notice that Agent 0 is busy, step in to help with their tasks, while keeping an eye on the cooking process."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 200.0,
+        "rewards": [
+          200,
+          200
+        ],
+        "min_reward": 200,
+        "max_reward": 200,
+        "input_tokens": 1429901,
+        "output_tokens": 1114996,
+        "total_tokens": 2544897,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-03-06T20:03:44.963777",
+      "agent_0": {
+        "policy": "Stay flexible in your role; alternate between gathering ingredients, cooking, and delivering as the situation demands. When blocked, notify Agent 1 immediately to coordinate a solution together. Consistently communicate your actions to avoid confusion."
+      },
+      "agent_1": {
+        "policy": "Be proactive in taking on any role that supports the workflow, from gathering to cooking or delivering. Quickly respond to situations where Agent 0 is blocked by stepping in to help. Share your plan and actions to create a cohesive strategy."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 170.0,
+        "rewards": [
+          180,
+          160
+        ],
+        "min_reward": 160,
+        "max_reward": 180,
+        "input_tokens": 2862869,
+        "output_tokens": 2239423,
+        "total_tokens": 5102292,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    }
+  }
+}

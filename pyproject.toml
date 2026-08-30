@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "langmarl"
+version = "1.0.0"
+description = "Language-space Multi-Agent Reinforcement Learning with LLM-based policy gradients"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Huaiyuan Yao"},
+    {name = "Longchao Da"},
+    {name = "Xiaoou Liu"},
+    {name = "Charles Fleming"},
+    {name = "Tianlong Chen"},
+    {name = "Hua Wei"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "openai>=1.0",
+    "tqdm",
+]
+
+[project.urls]
+Homepage = "https://github.com/DaRL-GenAI/LangMARL"
+Repository = "https://github.com/DaRL-GenAI/LangMARL"
+Paper = "https://arxiv.org/abs/2604.00722"
+
+[project.optional-dependencies]
+# overcooked_ai itself is NOT on PyPI at the version this needs (0.0.1); run
+# scripts/setup_overcooked.py after installing this extra. See docs/environments.md.
+overcooked = [
+    "numpy<2",
+    "scipy",
+    "gym",
+    "tqdm",
+    "rich",
+]
+pistonball = ["pettingzoo[butterfly]==1.25.0", "supersuit", "pygame", "numpy"]
+data = ["pandas", "pyarrow"]
+all = ["langmarl[overcooked,pistonball,data]"]
+dev = ["pytest", "pytest-cov", "ruff", "mypy", "pre-commit"]
+docs = ["mkdocs", "mkdocs-material", "mkdocstrings[python]"]
+
+[project.scripts]
+langmarl = "langmarl.cli.train:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["langmarl*"]
+
+[tool.setuptools.package-data]
+"langmarl.envs.language" = ["prompts/**/*.json"]
+"langmarl.envs.pistonball" = ["prompts/**/*.json"]
+"langmarl.envs.overcooked" = ["prompts/**/*.json"]
+"langmarl.envs.overcooked.proagent" = ["prompts/**/*.json", "prompts/**/*.txt"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# ProAgent is ported near-verbatim from the upstream implementation; reformatting
+# it would make it hard to diff against the original.
+extend-exclude = ["langmarl/envs/overcooked/proagent"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = [
+    "E501",  # long lines are mostly prompt text
+    "E741",  # single-letter names match the paper's notation
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error::UserWarning"]

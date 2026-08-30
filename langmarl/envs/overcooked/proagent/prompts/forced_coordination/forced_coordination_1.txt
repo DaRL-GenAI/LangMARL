@@ -1,0 +1,68 @@
+Instructions:
+- Overcooked is played by two players who will act as a team. The team goal is to prepare and serve a variety of soup. 
+- You are the player 1 in playing Overcooked, your task is to coordinate with player 0 to play the game.
+- You need to analyze the current scene and plan for the next action player 1 should take based on the game strategy below.
+
+
+Game Strategy for Player 1:
+- You should coordinate with another player to cook and server onions.
+- As the provider of onions and dishes, Player 1 should efficiently schedule Player 0’s work: when both pots are not full, Player 1 should place onions on the counter to fill the pots first; when one pot is cooked or about to be cooked, Player 1 should place one dish, with each dish corresponding to one cooked pot.
+- Please note that all items on the counter can be accessed by Player 0. Before making any decisions, you should first determine whether the items on the counter are sufficient for Player 0’s use.
+- When you are holding a dish or an onion, your next available action is limited to placing it on the counter.
+- Before picking up additional dishes or onions, please first check whether the items already placed on the counters are sufficient to meet Player 0’s cooking requirements. If they are sufficient, it is preferable to wait for a few steps rather than acquiring extra items, as doing so may unnecessarily occupy the limited counter space.
+
+
+Legal actions:
+- pickup_onion
+    - Player 1 need to have nothing in hand.
+- pickup_dish
+    - Player 1 need to have nothing in hand.
+- place_obj_on_counter
+    - Player 1 need to have something in hand.
+    - Need to have an empty counter. 
+- wait(x)
+    - Wait for x step and do nothing, x is a positive number.
+
+
+Facts:
+- There will be pot and counters in the kitchen.  
+- Notice the recipe, as we need to follow the recipe to put the ingredients in the pot. In this case, we need to put three onions in the pot to start cooking. 
+- The pot will cook for 20 timesteps and then become soup ready.
+- You cannot use move actions and don't use the location information in the observation.
+- You can only hold one thing at a time. To put down the thing I am holding and empty my hand, I should use place_obj_on_counter.
+- You can only pick up and hold one thing at a time.
+- Whether the soup is ready or not will be noted in the current scene description. If it is not clearly stated that the soup is ready, it is not ready. 
+
+
+Outputs:
+- Based on the current scene, you need to 
+    1. Describe the current scene and analyze it step by step.
+    2. Based on the analysis, make the best plan as player 1 to perform right now.  When giving plans, you can only choose from legal actions above. 
+- After giving analysis, plan for player 1. Format should follow: Plan for player1: f"{legal_action}"     
+
+
+Examples: 
+###
+Scene 0: <Player 1> holds nothing. Kitchen states: <pot 0> is empty; <pot 1> is empty; 3 counters can be visited by me. Their states are as follows: 3 counters are empty. 
+Analysis:
+- The kitchen is empty, and there are no onions or dishes on the counters.
+- Player1 needs to deliver an onion and a dish to the counter.
+- The legal actions that player1 can take are pickup_onion and pickup_dish.
+
+Plan for player1: "pickup_onion"
+###
+Scene 2: <Player 1> holds one onion. Kitchen states: <pot 0> is empty; <pot 1> is empty; 3 counters can be visited by me. Their states are as follows: 3 counters are empty. 
+Analysis: 
+- player1 is holding one onion. 
+- player1 should place the object on counter 
+
+Plan for player1: "place_obj_on_counter" 
+###    
+Scene 3: <Player 1> holds nothing. Kitchen states: <pot 0> is empty; soup in <pot 1> is cooking, it will be ready after 17 timesteps; 3 counters can be visited by me. Their states are as follows: 1 counters have onion. 1 counters have dish. 1 counters are empty. 
+Analysis: 
+- player1 is holding nothing. 
+- There is already an onion on the counter, so player1 cannot pickup onion. 
+- There is already a dish on the counter, so player1 cannot pickup dish. 
+so, player1 should wait. 
+Plan for player1: "wait(1)" 
+###

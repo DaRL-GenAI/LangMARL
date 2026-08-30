@@ -1,0 +1,276 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 10,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- You should coordinate with another player to cook and server onions."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- You should coordinate with Player 0 to prepare and serve soup."
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-02T17:26:18.157464",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Coordinate closely with Player 1 to ensure efficient cooking and delivery of soups. \n- Assess the kitchen state continuously to minimize waiting times; if Player 1 is holding onions, prepare to pick up a dish or engage in the next cooking step.\n- Be flexible in your role; if Player 1 has gathered enough onions, assist in cooking by placing onions in the pot while maintaining focus on delivering soups.\n- Prioritize getting three onions into a pot as quickly as possible; if both players have onions, coordinate to fill the pots directly instead of placing them on counters.\n- Utilize both pots effectively; if one pot is cooking, focus on preparing the second pot to maximize soup production.\n- Establish clear communication with Player 1; signal intentions, such as when about to pick up an onion, to synchronize actions and avoid idle time.\n- Implement a feedback mechanism to learn from past actions; adjust strategies if waiting leads to no soup deliveries, and engage in actions that contribute to soup preparation."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Actively coordinate with Player 0 to ensure timely preparation and delivery of soup.\n- Prioritize delivering ingredients directly to Player 0 instead of placing them on counters to minimize delays.\n- Assess the kitchen state continuously to determine when to gather more onions or assist in cooking.\n- Utilize both pots effectively by alternating focus; if one pot is cooking, prepare the second pot with ingredients.\n- Communicate intentions clearly, signaling when about to pick up ingredients or when ready to assist in cooking.\n- Engage in actions that directly contribute to soup preparation and delivery, avoiding unnecessary waiting.\n- Be flexible in roles; if Player 1 has enough onions, assist Player 0 by placing them in the pot while they focus on delivery.\n- Implement a feedback mechanism to learn from past actions and adjust strategies for improved efficiency and coordination."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 0.0,
+        "rewards": [
+          0,
+          0,
+          0
+        ],
+        "min_reward": 0,
+        "max_reward": 0,
+        "input_tokens": 240191,
+        "output_tokens": 305184,
+        "total_tokens": 545375,
+        "cost_usd": 0.21913905,
+        "textgrad_estimated_tokens": 160939,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-02T19:55:53.193058",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Actively communicate with Player 1 to signal needs and intentions, minimizing idle time and ensuring efficient resource flow.\n- Prioritize the continuous supply of onions and dishes by encouraging Player 1 to place onions on counters for quick access, reducing waiting time for Player 0.\n- Strategically alternate between pots; when one pot is cooking, immediately start filling the other pot with onions to maximize pot utilization.\n- Develop a synchronized action plan with Player 1, anticipating the next steps. For example, if Player 0 is about to deliver soup, Player 1 should prepare to pick up a dish or onion right after the delivery.\n- Focus on prioritizing deliveries; if Player 0 has a filled dish, they should deliver it immediately rather than picking up additional onions unless necessary.\n- Utilize counters effectively by placing items only when immediate follow-up actions can be taken, reducing unnecessary actions and streamlining the cooking process.\n- Implement a feedback loop after each episode to review actions, analyze successful deliveries, and adjust strategies for continuous improvement."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Actively coordinate with Player 0 by signaling needs and intentions to minimize idle time and enhance resource flow.\n- Prioritize placing onions on counters for Player 0 to access quickly, ensuring a continuous supply of both onions and dishes.\n- Encourage Player 0 to alternate between pots strategically, filling the second pot while the first is cooking to maximize pot utilization.\n- Develop a synchronized action plan where Player 1 anticipates Player 0's deliveries and prepares to pick up dishes or onions immediately after.\n- Focus on prioritizing deliveries; if Player 0 has a filled dish, they should deliver it promptly rather than picking up additional onions unless necessary.\n- Train players to utilize counters effectively, placing items only when they can immediately follow up with an action to streamline the cooking process.\n- Implement a feedback loop after each episode to review actions, assess successful deliveries, and adjust strategies for continuous improvement."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 73.33333333333333,
+        "rewards": [
+          120,
+          40,
+          60
+        ],
+        "min_reward": 40,
+        "max_reward": 120,
+        "input_tokens": 472544,
+        "output_tokens": 629823,
+        "total_tokens": 1102367,
+        "cost_usd": 0.4487754,
+        "textgrad_estimated_tokens": 156693,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_3": {
+      "timestamp": "2026-01-03T03:25:09.984251",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize immediate soup delivery by focusing on delivering ready pots while Player 1 prepares the next dish or gathers ingredients.\n- Actively communicate with Player 1 to synchronize actions, reducing idle time and ensuring both players are aware of each other's tasks.\n- Utilize both pots simultaneously by coordinating cooking efforts; Player 0 should cook in one pot while Player 1 prepares ingredients for the second pot.\n- Streamline resource flow by having Player 1 maintain a steady supply of ingredients, placing them on counters or directly into pots as needed.\n- Minimize redundant actions by proactively checking the state of pots or preparing for the next delivery instead of waiting idly.\n- Implement a feedback loop to review actions after each episode, identifying inefficiencies and adjusting strategies for continuous improvement.\n- Encourage proactive behavior, prompting both players to take initiative and act without waiting for explicit instructions from each other."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Actively coordinate with Player 0 to synchronize actions and minimize waiting times. Implement a signaling system to indicate readiness for the next action.\n- Prioritize immediate soup delivery by focusing on delivering completed dishes rather than gathering additional ingredients when a pot is ready.\n- Utilize both pots simultaneously by preparing ingredients for the second pot while Player 0 cooks in the first pot, ensuring both pots are actively used.\n- Streamline resource flow by maintaining a steady supply of onions and preparing dishes, placing ingredients on counters or directly into pots as needed.\n- Reduce redundant actions by varying tasks and ensuring that both players are engaged in productive activities, such as checking pot states or preparing for upcoming deliveries.\n- Implement a feedback loop to review actions after each episode, allowing players to learn from inefficiencies and adjust strategies for future rounds.\n- Encourage proactive behavior by having Player 1 take initiative, such as gathering ingredients or preparing dishes without waiting for explicit instructions from Player 0, to maintain momentum and reduce downtime."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 0.0,
+        "rewards": [
+          0,
+          0,
+          0
+        ],
+        "min_reward": 0,
+        "max_reward": 0,
+        "input_tokens": 712381,
+        "output_tokens": 907841,
+        "total_tokens": 1620222,
+        "cost_usd": 0.6515617499999999,
+        "textgrad_estimated_tokens": 159166,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_4": {
+      "timestamp": "2026-01-03T11:38:30.257059",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions to minimize waiting time, such as positioning closer to pots or gathering additional resources.\n- Collaborate with Player 1 to ensure strategic placement of ingredients, focusing on accessibility to enhance resource flow.\n- Utilize both pots simultaneously by coordinating with Player 1 to gather enough ingredients for efficient cooking.\n- Develop a sequence of complementary actions, allowing Player 0 to fill dishes while Player 1 prepares the next set of ingredients.\n- Implement a simple communication strategy to enhance coordination, such as announcing intentions before placing ingredients.\n- Be flexible in roles; assist Player 1 with resource gathering when necessary to maintain a steady workflow.\n- After each delivery, evaluate actions to identify areas for improvement and adjust strategies accordingly.\n- Prioritize actions that lead directly to successful soup deliveries, minimizing redundant actions and excessive waiting."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 by anticipating their needs and preparing resources in advance to minimize idle time and maintain momentum.\n- Strategically place ingredients, such as onions, on counters that are most accessible to Player 0, ensuring they are always within reach for efficient cooking.\n- Gather enough ingredients to utilize both pots simultaneously, allowing for increased soup production and reducing downtime.\n- Develop a sequence of actions that complement Player 0's tasks, such as preparing the next set of ingredients while Player 0 is filling dishes, to create a smoother workflow.\n- Implement a simple communication strategy, such as verbal cues, to enhance coordination and ensure both players are ready to act on each other's intentions.\n- Be flexible in roles; if Player 1 is overwhelmed, Player 0 should assist in resource gathering to maintain a steady flow of ingredients.\n- After each delivery, evaluate previous actions to identify areas for improvement, adjusting strategies to enhance efficiency in subsequent episodes.\n- Focus on actions that lead directly to successful soup deliveries, minimizing unnecessary waiting or redundant pickups to maximize rewards."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 33.333333333333336,
+        "rewards": [
+          0,
+          60,
+          40
+        ],
+        "min_reward": 0,
+        "max_reward": 60,
+        "input_tokens": 947248,
+        "output_tokens": 1206032,
+        "total_tokens": 2153280,
+        "cost_usd": 0.8657064,
+        "textgrad_estimated_tokens": 157396,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_5": {
+      "timestamp": "2026-01-03T14:16:43.453623",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions to ensure efficient soup deliveries, minimizing idle time and redundant actions. \n- Continuously assess the kitchen state and take actions that contribute to resource flow or cooking, avoiding unnecessary waiting.\n- Coordinate with Player 1 to optimize resource placement, ensuring that ingredients are positioned for immediate use, particularly when Player 0 is ready to cook.\n- Implement a signaling mechanism to enhance communication, allowing Player 0 to indicate readiness to cook, prompting Player 1 to prioritize resource gathering and placement.\n- Focus on cooking as soon as sufficient ingredients are available, while preparing for subsequent dishes to maintain a continuous flow of soup deliveries.\n- Streamline resource management by alternating between gathering onions and dishes, ensuring Player 0 has what they need without interruption.\n- Recognize and minimize redundant actions, prioritizing tasks that directly contribute to soup delivery, such as picking up dishes instead of placing additional ingredients unnecessarily.\n- Utilize both pots effectively by cooking in both when possible, with Player 1 ensuring that necessary ingredients are available for each pot.\n- Establish a feedback loop for continuous improvement, allowing players to learn from previous actions and refine their strategies for better performance.\n- Engage in a diverse range of actions beyond waiting, focusing on dynamic tasks that enhance gameplay responsiveness and efficiency."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to optimize resource flow and minimize idle time. Continuously assess the kitchen state to take actions that contribute to cooking and delivery, such as repositioning or preparing to gather resources.\n- Strategically time the placement of ingredients on counters, ensuring that they are positioned for immediate use by Player 0. For instance, place onions directly on the counter closest to the pot when Player 0 is ready to cook.\n- Implement a signaling mechanism with Player 0 to enhance communication and coordination, allowing for timely execution of cooking and delivery actions.\n- Focus on maintaining a steady flow of both onions and dishes by alternating between gathering and placing resources, anticipating Player 0's needs based on the cooking process.\n- Minimize redundant actions by recognizing when an action does not contribute to soup delivery. Prioritize picking up dishes over placing additional ingredients when Player 0 is waiting.\n- Encourage the utilization of both pots by ensuring that Player 0 has the necessary ingredients for each pot, allowing for simultaneous cooking and maximizing efficiency.\n- Continuously refine strategies through feedback and assessment of previous actions to improve overall team performance and maximize rewards."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 73.33333333333333,
+        "rewards": [
+          60,
+          40,
+          120
+        ],
+        "min_reward": 40,
+        "max_reward": 120,
+        "input_tokens": 1183476,
+        "output_tokens": 1529445,
+        "total_tokens": 2712921,
+        "cost_usd": 1.0951883999999998,
+        "textgrad_estimated_tokens": 159276,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_6": {
+      "timestamp": "2026-01-03T16:33:36.168928",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions that enhance gameplay responsiveness and efficiency, focusing on minimizing idle time and synchronizing actions with Player 1. \n- Utilize both pots simultaneously to maximize soup production; while Player 0 cooks in one pot, Player 1 should prepare ingredients for the second pot.\n- Ensure effective resource management by directly handing off ingredients to Player 0 or positioning them for quick access, rather than placing them on counters without a clear plan.\n- Develop a proactive action plan for each cooking phase, assessing needs immediately after a soup delivery and preparing accordingly, such as gathering ingredients or preparing dishes while waiting for cooking.\n- Minimize redundant actions by focusing on tasks that directly contribute to soup delivery, avoiding unnecessary waiting or repetitive placements of items.\n- Establish clear communication signals to enhance coordination, indicating readiness to cook or deliver, which will streamline actions and reduce downtime.\n- Implement a feedback loop after each delivery to evaluate performance, identify bottlenecks, and refine strategies for continuous improvement, ensuring that both players remain engaged and efficient throughout the cooking process."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to synchronize actions, ensuring that while Player 0 is filling a dish, Player 1 is preparing the next set of ingredients, such as onions or dishes, to minimize idle time and enhance team efficiency.\n- Utilize both pots simultaneously by preparing ingredients for the second pot while Player 0 cooks in the first pot, anticipating needs and optimizing soup production.\n- Focus on effective resource management by directly handing off ingredients to Player 0 or positioning them for quick access, rather than placing them on counters without a clear plan.\n- Develop proactive action plans for each cooking phase, assessing what is needed for the next dish immediately after a delivery and preparing accordingly.\n- Minimize redundant actions by ensuring that every action contributes directly to soup delivery, such as gathering more onions or preparing dishes instead of waiting or placing items on counters.\n- Establish clear communication signals to enhance coordination, allowing players to prepare resources based on each other's readiness to cook or deliver.\n- Implement a feedback loop after each delivery to evaluate performance, identify bottlenecks, and refine strategies for continuous improvement, ultimately maximizing the total number of soups delivered within the time limit."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 86.66666666666667,
+        "rewards": [
+          40,
+          180,
+          40
+        ],
+        "min_reward": 40,
+        "max_reward": 180,
+        "input_tokens": 1416870,
+        "output_tokens": 1854567,
+        "total_tokens": 3271437,
+        "cost_usd": 1.3252707,
+        "textgrad_estimated_tokens": 157529,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_7": {
+      "timestamp": "2026-01-03T18:39:49.137221",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions to minimize idle time and enhance coordination with Player 1. For instance, if Player 1 is about to pick up an onion, Player 0 should be ready to either put it in the pot or pick it up immediately after.\n- Focus on effective resource management by ensuring that onions and other ingredients are placed on counters that Player 0 can access easily, allowing for immediate cooking actions.\n- Maximize the utilization of both cooking pots by alternating between them, ensuring that while one pot is cooking, the other is being prepared for the next batch.\n- Minimize redundant actions by placing ingredients directly into pots rather than on counters, maintaining a continuous workflow.\n- Prioritize timely deliveries by being ready to deliver soup as soon as it is cooked, while also ensuring that dishes are filled and available for immediate delivery.\n- Maintain flexibility in roles; if Player 0 is waiting for ingredients, assist Player 1 in gathering resources or preparing dishes to keep the action flowing.\n- Implement a feedback loop for learning, allowing both players to review their actions after each delivery attempt to identify inefficiencies and adjust strategies in real-time."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to minimize waiting time by anticipating actions and signaling intentions, ensuring that both players are ready to act simultaneously.\n- Focus on placing onions and other ingredients on counters that are easily accessible to Player 0, streamlining the process of getting ingredients into the pots.\n- Actively supply both pots with ingredients, alternating between them to maximize cooking efficiency and ensure that both pots are utilized effectively.\n- Reduce redundant actions by placing onions directly into pots or preparing dishes for immediate delivery, minimizing unnecessary movements.\n- Prioritize actions that lead to timely soup deliveries, ensuring that dishes are filled and ready for immediate delivery as soon as they are cooked.\n- Maintain flexibility in roles, assisting Player 0 in gathering resources or preparing dishes when they are waiting for ingredients, to keep the workflow continuous.\n- Implement a feedback mechanism to review actions after each delivery attempt, allowing both players to identify inefficiencies and adjust strategies in real-time for improved performance."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 106.66666666666667,
+        "rewards": [
+          60,
+          200,
+          60
+        ],
+        "min_reward": 60,
+        "max_reward": 200,
+        "input_tokens": 1655714,
+        "output_tokens": 2171817,
+        "total_tokens": 3827531,
+        "cost_usd": 1.5514473,
+        "textgrad_estimated_tokens": 160259,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_8": {
+      "timestamp": "2026-01-04T05:03:28.809636",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions and maintain clear communication with Player 1 to synchronize actions and minimize waiting time. Implement a signaling mechanism, such as verbal cues or countdowns, to indicate readiness for the next step.\n- Focus on optimizing resource flow by ensuring a continuous supply of ingredients. Player 1 should prioritize placing ingredients directly in front of Player 0 rather than on counters, allowing for quick access and reducing idle time.\n- Utilize both pots effectively by coordinating actions to ensure simultaneous cooking. If Player 0 is filling one pot, Player 1 should prepare to fill the second pot immediately after, enhancing overall cooking efficiency.\n- Prioritize soup delivery by minimizing waiting time and maximizing cooking and delivery actions. Player 1 should ensure that all necessary items are readily accessible to Player 0 to facilitate prompt dish preparation and delivery.\n- Implement a structured action plan that outlines key tasks for each timestep, such as \"pickup onion,\" \"put onion in pot,\" and \"deliver soup.\" This will help reduce indecision and streamline gameplay.\n- Establish a feedback loop for continuous improvement by reviewing actions after each episode. Discuss what strategies worked well and identify areas for enhancement to refine gameplay and increase soup delivery efficiency."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to synchronize actions and minimize waiting time. Implement a signaling mechanism, such as verbal cues or countdowns, to communicate intentions effectively.\n- Focus on optimizing resource flow by delivering ingredients directly to Player 0, ensuring a continuous supply without unnecessary delays. Prioritize placing ingredients in a way that allows for quick access.\n- Utilize both pots simultaneously by coordinating actions; if Player 0 is filling one pot, Player 1 should prepare ingredients for the second pot to maximize cooking efficiency.\n- Align actions with the goal of delivering soups by minimizing idle time and ensuring that Player 0 has everything needed for prompt dish preparation and delivery.\n- Develop a structured action plan that outlines key tasks for each timestep, such as \"pickup onion,\" \"put onion in pot,\" and \"deliver soup,\" to reduce indecision and enhance fluidity in gameplay.\n- Establish a feedback loop for continuous improvement by reviewing actions after each episode, discussing successes and areas for improvement to refine strategies over time."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 80.0,
+        "rewards": [
+          40,
+          40,
+          160
+        ],
+        "min_reward": 40,
+        "max_reward": 160,
+        "input_tokens": 227071,
+        "output_tokens": 334918,
+        "total_tokens": 561989,
+        "cost_usd": 0.23501144999999998,
+        "textgrad_estimated_tokens": 153591,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_9": {
+      "timestamp": "2026-01-04T09:53:20.557843",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Proactively engage in preparatory actions that enhance gameplay and increase soup delivery efficiency by minimizing idle time and reducing redundant actions. \n- Coordinate closely with Player 1 to ensure seamless resource management, allowing one player to gather ingredients while the other focuses on cooking and delivery.\n- Prioritize the effective utilization of cooking pots by placing ingredients in them as soon as they are ready, and continuously check pot status to optimize cooking output.\n- Recognize the timing of soup readiness and prioritize actions that lead to immediate delivery, avoiding non-rewarding tasks just before a soup is ready.\n- Maintain awareness of the sparse reward structure, ensuring that every action contributes to the overall goal of maximizing soup deliveries.\n- Be flexible in role assignments, dynamically adjusting responsibilities based on the current state of the kitchen to enhance efficiency.\n- Implement a feedback mechanism to learn from previous actions, allowing for real-time strategy adjustments and encouraging the replication of successful delivery sequences."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to ensure seamless action timing and minimize idle periods. Anticipate Player 0's needs to maintain continuous workflow in soup preparation and delivery.\n- Optimize resource management by placing gathered ingredients, such as onions, in easily accessible locations for Player 0, reducing unnecessary movement and delays.\n- Effectively utilize cooking pots by preparing ingredients for the second pot while the first is in use, ensuring maximum cooking output.\n- Avoid redundant actions by engaging in proactive tasks that directly contribute to the cooking and delivery process, rather than waiting or performing non-essential tasks.\n- Implement a communication system to signal needs and intentions, enhancing coordination between players. Establish a feedback loop after each delivery to assess performance and refine strategies.\n- Plan actions with future deliveries in mind, ensuring that both players are always prepared for the next steps in the cooking process, thus maximizing efficiency and total rewards."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 60.0,
+        "rewards": [
+          80,
+          60,
+          40
+        ],
+        "min_reward": 40,
+        "max_reward": 80,
+        "input_tokens": 466753,
+        "output_tokens": 631168,
+        "total_tokens": 1097921,
+        "cost_usd": 0.4487137499999999,
+        "textgrad_estimated_tokens": 160762,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_10": {
+      "timestamp": "2026-01-04T12:08:23.735219",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Actively minimize waiting times by engaging in preparatory actions, such as moving to counters or onion dispensers when not occupied.\n- Enhance coordination with Player 1 by communicating actions, ensuring timely resource utilization and immediate pot filling.\n- Optimize the use of both pots by alternating focus; while one pot cooks, gather ingredients for the other to maximize output.\n- Prioritize immediate delivery of soups as soon as they are ready, avoiding unrelated tasks that could delay this process.\n- Maintain a dynamic assessment of the kitchen state to adjust actions based on current needs, ensuring efficient resource flow and minimizing redundant actions.\n- Implement a feedback mechanism to encourage proactive behavior, rewarding timely actions and penalizing unnecessary waiting.\n- Encourage strategic planning to ensure both players are effectively contributing to the cooking process, enhancing overall team performance and maximizing rewards from soup deliveries."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Proactively coordinate with Player 0 to optimize resource flow and minimize waiting times. Instead of waiting, Player 1 should anticipate Player 0's needs and deliver onions or dishes to counters for quick access.\n- Communicate actions clearly with Player 0, such as informing them when picking up an onion, so they can prepare to use it immediately in the pot.\n- Focus on utilizing both pots effectively by alternating between gathering ingredients for the second pot while Player 0 delivers soup from the first pot.\n- Prioritize immediate delivery of soups by ensuring Player 0 acts promptly when a dish is ready, while Player 1 prepares the next batch of ingredients.\n- Assess the kitchen state dynamically to adjust actions based on the current layout and cooking status, minimizing redundant actions like waiting or picking up the same ingredient multiple times.\n- Implement a feedback mechanism to encourage proactive behavior, rewarding timely actions that contribute to cooking and delivery efficiency."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 106.66666666666667,
+        "rewards": [
+          140,
+          140,
+          40
+        ],
+        "min_reward": 40,
+        "max_reward": 140,
+        "input_tokens": 705458,
+        "output_tokens": 943262,
+        "total_tokens": 1648720,
+        "cost_usd": 0.6717759000000001,
+        "textgrad_estimated_tokens": 160004,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

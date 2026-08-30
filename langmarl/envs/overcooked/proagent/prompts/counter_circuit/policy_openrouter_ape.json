@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "description": "OpenRouter ape \u2013 counter_circuit",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-03-06T11:31:29.946981",
+      "agent_0": {
+        "policy": "As Agent 0, your primary responsibility is to gather ingredients for soup. Always prioritize picking up onions and tomatoes to keep the cooking process flowing. If you see Agent 1 is blocked or waiting, communicate verbally to ensure smooth operations."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, your main task is to cook and deliver the soups. Once Agent 0 has collected the ingredients, focus on managing the pots, plating the soup, and delivering to the serving area. If pots are unattended, prioritize checking on them, while also being ready to assist Agent 0 if they need help."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 100.0,
+        "rewards": [
+          120,
+          80
+        ],
+        "min_reward": 80,
+        "max_reward": 120,
+        "input_tokens": 1381003,
+        "output_tokens": 1133874,
+        "total_tokens": 2514877,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-03-06T19:14:36.805158",
+      "agent_0": {
+        "policy": "As Agent 0, your primary focus is to gather ingredients, but you should also monitor Agent 1's needs. If cooking is delayed due to unattended pots, shift your priority to help out with those pots until Agent 1 can take over."
+      },
+      "agent_1": {
+        "policy": "As Agent 1, you should prioritize cooking and delivering soups but be adaptable. If you notice that pots are unattended or cooking is stalled, communicate with Agent 0 to adjust roles and ensure that both ingredient gathering and cooking efforts remain efficient."
+      },
+      "training_stats": {
+        "paradigm": "ape",
+        "avg_reward": 120.0,
+        "rewards": [
+          100,
+          140
+        ],
+        "min_reward": 100,
+        "max_reward": 140,
+        "input_tokens": 2769003,
+        "output_tokens": 2230567,
+        "total_tokens": 4999570,
+        "cost_usd": 0.0,
+        "total_episodes": 5,
+        "gradient_episodes": 0,
+        "textgrad_estimated_tokens": 0,
+        "textgrad_queries": 0
+      }
+    }
+  }
+}

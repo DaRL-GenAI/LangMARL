@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for 2-agent language task training",
+  "current_iteration": 0,
+  "policies": {
+    "iteration_0": {
+      "agent_1": {
+        "policy": "You are participating in a collaborative language task with 2 agents.\n- You are Agent 1 and speak first.\n- Analyze the given problem and provide an initial response.\n- After you respond, Agent 2 will see the task and your response.\nPlease provide your response to the task."
+      },
+      "agent_2": {
+        "policy": "You are participating in a collaborative language task with 2 agents.\n- You are Agent 2 and respond after Agent 1.\n- You can see the problem description and Agent 1's response.\n- Provide the final answer to the task.\nPlease provide your response."
+      }
+    }
+  }
+}

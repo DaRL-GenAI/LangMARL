@@ -1,0 +1,224 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 8,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- You should coordinate with another player closely."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- You should coordinate with another player closely."
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-12T05:02:58.158252",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Focus on enhancing coordination with Player 1 by assessing their actions and the overall kitchen state.\n- Prioritize effective communication to ensure both players are aware of each other's needs and positions.\n- Implement a strategy to alternate between filling dishes and preparing onions, optimizing timing to complement Player 1's movements.\n- Utilize counters strategically to pass items to Player 1, facilitating smoother collaboration and improving soup delivery efficiency.\n- Regularly evaluate the cooking process to identify opportunities for better teamwork and efficiency."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Focus on effective coordination with Player 0 to enhance teamwork and ensure timely soup deliveries.\n- Prioritize assessing the state of the pots before filling dishes to maximize efficiency in the soup preparation process.\n- Avoid holding onto ingredients or dishes without passing them to Player 0, facilitating quicker soup preparation and delivery.\n- Implement a clear division of labor, where Player 1 gathers ingredients while Player 0 manages cooking and serving.\n- Communicate regularly with Player 0 to align actions and avoid overlapping efforts, particularly near dish dispensers and pots."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 120.0,
+        "rewards": [
+          100,
+          160,
+          100
+        ],
+        "min_reward": 100,
+        "max_reward": 160,
+        "input_tokens": 324852,
+        "output_tokens": 123028,
+        "total_tokens": 447880,
+        "cost_usd": 0.1225446,
+        "textgrad_estimated_tokens": 205535,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-12T05:44:04.804683",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of dishes and proactive communication with Player 1 to enhance coordination during the cooking process. \n- Assess the readiness of pots before filling dishes to ensure efficient soup delivery and minimize wasted actions.\n- Implement a strategy to pass items through counters to Player 1, facilitating smoother operations and reducing redundancy.\n- Anticipate Player 1's needs by closely observing their actions, ensuring that both players work in sync to maximize cooking and delivery efficiency."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance overall team performance. \n- Assess the state of the pots and the needs of Player 0 before picking up onions or dishes to avoid redundant actions.\n- Focus on passing onions to Player 0 through counters to facilitate quicker soup preparation and streamline the cooking process.\n- Anticipate when to fill dishes or deliver soup, ensuring timely actions that align with Player 0's needs.\n- Maintain awareness of the overall cooking process to minimize bottlenecks and maximize efficiency in soup delivery."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 120.0,
+        "rewards": [
+          160,
+          140,
+          60
+        ],
+        "min_reward": 60,
+        "max_reward": 160,
+        "input_tokens": 648142,
+        "output_tokens": 242046,
+        "total_tokens": 890188,
+        "cost_usd": 0.24244890000000002,
+        "textgrad_estimated_tokens": 204444,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_3": {
+      "timestamp": "2026-01-12T06:36:58.228834",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of dishes by effectively coordinating with Player 1 to maximize cooking and delivery efficiency. \n- Focus on placing onions in pots while being aware of Player 1's actions to avoid overlap and missed opportunities for collaboration.\n- Utilize counters for passing items to Player 1 when feasible, enhancing resource sharing and reducing delays.\n- Anticipate the state of the pots and the timing of soup readiness to plan actions that lead to immediate soup delivery.\n- Adjust actions based on Player 1's positioning, ensuring that both players work in sync to achieve the team goal of delivering soup efficiently."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance collaboration and minimize bottlenecks in the soup delivery process.\n- Focus on passing onions to Player 0 when the pots are ready, rather than gathering more onions, to facilitate quicker pot filling and soup delivery.\n- Anticipate Player 0's needs by observing their actions and adjusting accordingly, ensuring that Player 1 is positioned to assist with soup delivery when necessary.\n- Utilize counters effectively for passing items, and communicate intentions through movement to avoid overlap in tasks with Player 0.\n- Develop a strategy to time actions appropriately, such as prioritizing gathering onions or managing pots when Player 0 is preparing to fill a dish, to optimize resource sharing and efficiency in the cooking process."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 146.66666666666666,
+        "rewards": [
+          180,
+          100,
+          160
+        ],
+        "min_reward": 100,
+        "max_reward": 180,
+        "input_tokens": 973273,
+        "output_tokens": 377482,
+        "total_tokens": 1350755,
+        "cost_usd": 0.37248015,
+        "textgrad_estimated_tokens": 204524,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_4": {
+      "timestamp": "2026-01-12T07:28:49.354016",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of dishes by effectively utilizing counters to pass items to Player 1, especially when holding multiple onions.\n- Coordinate actions with Player 1 by anticipating their needs and movements, ensuring that pots are filled and cooking efficiently.\n- Maximize the use of accessible pots and be aware of the cooking status to facilitate smoother operations.\n- Communicate intentions through actions, such as moving towards the dish dispenser when Player 1 is ready to deliver soup, to enhance collaboration and efficiency in soup preparation."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance resource sharing and efficiency in the cooking process. \n- Focus on consistently passing onions to Player 0, especially when they are preparing to fill pots, to facilitate quicker soup preparation.\n- Be proactive in delivering dishes when the soup is ready, ensuring alignment with Player 0's actions to optimize the timing of deliveries.\n- Utilize counters effectively to pass items to Player 0, minimizing delays and improving overall team efficiency.\n- Develop a strategy to signal intentions through movement, such as approaching the serving location when Player 0 is ready to fill the pot, to enhance collaboration."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 106.66666666666667,
+        "rewards": [
+          180,
+          120,
+          20
+        ],
+        "min_reward": 20,
+        "max_reward": 180,
+        "input_tokens": 1297350,
+        "output_tokens": 503895,
+        "total_tokens": 1801245,
+        "cost_usd": 0.4969395,
+        "textgrad_estimated_tokens": 205356,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_5": {
+      "timestamp": "2026-01-12T08:07:37.700394",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of dishes by effectively coordinating with Player 1 to enhance collaboration and efficiency in soup preparation. \n- Focus on filling dishes with soup while being aware of Player 1's position and actions to avoid blocking each other.\n- Utilize counters strategically to pass items to Player 1, especially when pots are not ready, to facilitate smoother operations.\n- Anticipate Player 1's needs regarding dish delivery and pot filling to optimize actions around critical moments.\n- Improve communication through actions, ensuring that the timing of filling dishes aligns with Player 1's movements and needs."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance collaboration and efficiency in soup preparation.\n- Focus on timely passing of onions and other items to Player 0, especially when they are in a position to receive them, to avoid bottlenecks.\n- Be aware of the state of the pots and the timing of soup readiness to optimize actions around critical moments.\n- Adjust actions based on Player 0's needs and positioning to facilitate smoother operations and maximize resource utilization.\n- Implement a strategy to communicate intentions through actions, ensuring both players are aligned in their efforts to fill dishes and deliver soups."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 126.66666666666667,
+        "rewards": [
+          60,
+          140,
+          180
+        ],
+        "min_reward": 60,
+        "max_reward": 180,
+        "input_tokens": 1619058,
+        "output_tokens": 624422,
+        "total_tokens": 2243480,
+        "cost_usd": 0.6175119,
+        "textgrad_estimated_tokens": 204105,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_6": {
+      "timestamp": "2026-01-12T08:58:41.754654",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of filled dishes to enhance overall soup delivery efficiency.\n- Actively utilize counters to pass items to Player 1, facilitating smoother collaboration and reducing delays.\n- Anticipate Player 1's needs and adjust actions accordingly to avoid bottlenecks, especially when both players are near the dish dispenser.\n- Focus on effective communication and coordination with Player 1 to optimize the cooking and delivery process, ensuring that both players are aligned in their tasks."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance the overall cooking process. \n- Focus on passing onions to Player 0 immediately after gathering them to facilitate quicker soup preparation.\n- Actively observe Player 0's actions to anticipate their needs and adjust your own actions accordingly, avoiding task overlaps.\n- Utilize counters effectively to streamline the passing of items and ensure timely dish filling.\n- Maintain awareness of the overall kitchen dynamics to optimize contributions towards soup delivery and minimize bottlenecks in workflow."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 153.33333333333334,
+        "rewards": [
+          180,
+          140,
+          140
+        ],
+        "min_reward": 140,
+        "max_reward": 180,
+        "input_tokens": 1945069,
+        "output_tokens": 735870,
+        "total_tokens": 2680939,
+        "cost_usd": 0.7332823500000001,
+        "textgrad_estimated_tokens": 205554,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_7": {
+      "timestamp": "2026-01-12T09:34:41.399494",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of filled dishes by enhancing coordination with Player 1, ensuring that both players are aligned in their tasks.\n- Focus on effectively utilizing counters to pass items to Player 1, facilitating smoother operations and reducing delays in soup preparation.\n- Maintain awareness of Player 1's actions and the overall state of the kitchen, adjusting actions based on their proximity to the dish dispenser and the readiness of the pots.\n- Implement a strategy for better timing when placing onions in pots, ensuring that items are not held onto unnecessarily and that actions are synchronized with Player 1's capabilities.\n- Develop communication strategies through actions, such as prioritizing dish filling when Player 1 is ready to deliver, to maximize efficiency and improve soup delivery rates."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance collaboration and optimize contributions towards soup delivery.\n- Focus on timely passing of onions and dishes to Player 0, especially when they are in a position to receive them, to minimize delays in workflow.\n- Develop a strategy to monitor Player 0's actions and adjust accordingly, ensuring that both players are synchronized in their tasks.\n- Utilize counters effectively to facilitate smoother operations and avoid bottlenecks, ensuring that both players can access necessary resources without redundancy.\n- Implement a proactive approach to timing and positioning, allowing for better alignment with Player 0's needs and the cooking status of the pots."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 106.66666666666667,
+        "rewards": [
+          60,
+          200,
+          60
+        ],
+        "min_reward": 60,
+        "max_reward": 200,
+        "input_tokens": 2269987,
+        "output_tokens": 831959,
+        "total_tokens": 3101946,
+        "cost_usd": 0.83967345,
+        "textgrad_estimated_tokens": 204588,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_8": {
+      "timestamp": "2026-01-12T10:07:38.409974",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\n- Prioritize timely delivery of filled dishes to maximize efficiency and improve soup delivery rates. \n- Actively coordinate with Player 1 by considering their position and actions, ensuring that both players can work together effectively.\n- Utilize counters to pass items to Player 1, facilitating smoother operations and enhancing workflow.\n- Communicate intentions through actions, such as moving towards the dish dispenser when Player 1 is near the pot, to improve collaboration.\n- Focus on timing actions to align with Player 1's tasks, ensuring that dishes are filled and delivered promptly when pots are ready."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:\n- Prioritize effective communication and coordination with Player 0 to enhance the soup delivery process. \n- Focus on passing onions to Player 0 more frequently to enable quicker pot filling and cooking.\n- Be aware of the state of the pots and the timing of when to fill dishes, ensuring that filled dishes are prioritized for delivery.\n- Utilize counters effectively to pass items and facilitate smoother collaboration with Player 0.\n- Anticipate Player 0's needs and adjust actions accordingly to maximize teamwork and efficiency in soup preparation."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 60.0,
+        "rewards": [
+          20,
+          100,
+          60
+        ],
+        "min_reward": 20,
+        "max_reward": 100,
+        "input_tokens": 2592940,
+        "output_tokens": 971726,
+        "total_tokens": 3564666,
+        "cost_usd": 0.9719766,
+        "textgrad_estimated_tokens": 205764,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

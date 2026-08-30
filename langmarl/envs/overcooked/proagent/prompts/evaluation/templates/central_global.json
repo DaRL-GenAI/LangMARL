@@ -1,0 +1,6 @@
+{
+  "version": "1.0",
+  "paradigm": "central_global",
+  "description": "Central Training with Global Reward - Shared critic evaluating overall team performance",
+  "template": "# YOUR TASK: EVALUATE TEAM POLICY (CENTRAL TRAINING - GLOBAL REWARD)\n\nYou are evaluating the TEAM's overall performance based on a complete trajectory.\n\n## Trajectory to Evaluate\n{trajectory}\n\n## EVALUATION CRITERIA (Central Training - Global Reward)\n\n**IMPORTANT**: This is CENTRAL training with GLOBAL reward - you are evaluating how well the TEAM works together to maximize total reward.\n\nEvaluate based on:\n1. **Cooking Efficiency**: How efficiently does the team produce and deliver soups?\n2. **Pot Utilization**: Are both pots being used effectively?\n3. **Resource Flow**: Is the flow of onions and dishes smooth and efficient?\n\n## ROLE CONTEXT\n{role_context}\n\n## SPARSE REWARD REMINDER\n- Rewards are ONLY +20 for soup delivery, 0 otherwise\n- Evaluate based on whether the team's joint actions are moving toward soup deliveries\n- Focus on team efficiency and coordination quality\n\n## Output Required\n\nProvide constructive gradient feedback to improve BOTH agents' policies to maximize team performance."
+}

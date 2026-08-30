@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 0,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: All portable items in the kitchen, including onions and dishes, follow the same coordination principles. The central counter is used as a shared handoff point only when it reduces long-distance travel. Role assignment is determined dynamically by distance to the immediate task target. Task targets take priority over counter passing. If a player is holding a required item (onion for an unfilled pot, or a dish for a ready soup) and is the closest player to the relevant target, that player should complete the interaction directly rather than placing the item on a counter. Counter passing should be used when a player is far from the target but close to the resource source, enabling a closer teammate to complete the task more efficiently. Unnecessary counter transfers that do not reduce total movement or delay task completion should be avoided. By applying this unified rule consistently to both onions and dishes, the team minimizes idle time, accelerates cooking and serving cycles, and achieves the highest possible score."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: All portable items in the kitchen, including onions and dishes, follow the same coordination principles. The central counter is used as a shared handoff point only when it reduces long-distance travel. Role assignment is determined dynamically by distance to the immediate task target. Task targets take priority over counter passing. If a player is holding a required item (onion for an unfilled pot, or a dish for a ready soup) and is the closest player to the relevant target, that player should complete the interaction directly rather than placing the item on a counter. Counter passing should be used when a player is far from the target but close to the resource source, enabling a closer teammate to complete the task more efficiently. Unnecessary counter transfers that do not reduce total movement or delay task completion should be avoided. By applying this unified rule consistently to both onions and dishes, the team minimizes idle time, accelerates cooking and serving cycles, and achieves the highest possible score."
+      }
+    }
+  }
+}

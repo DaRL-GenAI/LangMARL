@@ -1,0 +1,18 @@
+{
+  "env": "language",
+  "exp_name": "coding_central_credit",
+  "paradigm": "central_credit",
+  "task_type": "coding",
+  "benchmark_path": "env/lang_benchmark/coding",
+  "num_agents": 2,
+  "num_iterations": 5,
+  "trajectories_per_iteration": 10,
+  "episode_generation_workers": 8,
+  "optimizer_workers": 1,
+  "max_workers": 8,
+  "experiment_dir": "./experiments",
+  "checkpoint_dir": "./ckpt_policy",
+  "llm": "gpt-4o-mini",
+  "log_level": "INFO",
+  "start_iteration": 0
+}

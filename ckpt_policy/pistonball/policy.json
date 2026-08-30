@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for 20-piston Pistonball training",
+  "current_iteration": 0,
+  "policies": {
+    "iteration_0": {
+      "agent_policies": {
+        "piston_0": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_1": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_2": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_3": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_4": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_5": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_6": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_7": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_8": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_9": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_10": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_11": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_12": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_13": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_14": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_15": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_16": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_17": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_18": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        },
+        "piston_19": {
+          "policy": "The piston adjusts its vertical position cooperatively to push the ball toward the left boundary."
+        }
+      }
+    }
+  }
+}

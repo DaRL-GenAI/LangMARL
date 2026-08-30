@@ -1,0 +1,17 @@
+{
+  "env": "overcooked",
+  "exp_name": "cramped_room_central_global",
+  "paradigm": "central_global",
+  "layout": "cramped_room",
+  "episode_horizon": 400,
+  "p0_agent": "ProAgent",
+  "p1_agent": "Greedy",
+  "num_agents": 2,
+  "num_iterations": 5,
+  "trajectories_per_iteration": 3,
+  "max_workers": 1,
+  "experiment_dir": "./experiments",
+  "checkpoint_dir": "./ckpt_policy",
+  "llm": "gpt-4o-mini",
+  "log_level": "INFO"
+}

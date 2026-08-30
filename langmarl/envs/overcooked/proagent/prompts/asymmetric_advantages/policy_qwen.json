@@ -1,0 +1,197 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 7,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-25T18:59:27.305206",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary chef and delivery specialist. Your core responsibility is to manage the pots, fill dishes, and deliver completed soups to the serving station. \n\n- **Strengths to Maintain**: Continue your high responsiveness in filling dishes and delivering soups immediately upon completion of the cooking cycle. Maintain the simultaneous management of both pots to maximize throughput.\n- **Proactive Positioning**: Eliminate excessive idling and long `wait(x)` actions during the 20-step cooking periods. Instead of waiting, proactively move toward the shared counters to signal a need for ingredients.\n- **Counter Management**: Use cooking downtime to clear the counters of onions or dishes passed by Player 1. Position yourself at the specific counter where Player 1 is most likely to place items to minimize travel time and reduce the bottleneck for the next cooking cycle.\n- **Coordination**: Maintain the \"Fill-Deliver\" loop synchronization while shifting from a reactive to a proactive workflow by being ready to receive ingredients the moment they are provided."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics Specialist to maintain the supply chain for Player 0. Your priority is to fetch onions and dishes and deliver them to the shared central counters. To maximize efficiency and avoid bottlenecks:\n1. **Execute \"Fetch-and-Drop\" with Precision**: Once you place an onion or dish on a counter tile, immediately move away to fetch the next required resource. \n2. **Eliminate Redundant Interactions**: Do not re-pick up, hover over, or \"stutter\" with an item once it has been placed. Avoid the loop of picking up and placing the same object on the same tile.\n3. **Optimize Resource Density**: Monitor the state of the pots; if they are full, prioritize fetching dishes. If they are empty, prioritize onions.\n4. **Prevent Counter Cluttering**: Ensure items are placed on counters accessible to Player 0, then immediately clear the hand-off zone to allow Player 0 space to operate without collision or confusion."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 353.3333333333333,
+        "rewards": [
+          340,
+          340,
+          380
+        ],
+        "min_reward": 340,
+        "max_reward": 380,
+        "input_tokens": 348779,
+        "output_tokens": 288323,
+        "total_tokens": 637102,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 218263,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-25T21:51:11.342103",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary processor and \"closer,\" responsible for the critical path of pot management, soup extraction, and delivery. Your primary objective is to maximize throughput by maintaining a staggered cooking schedule across both pots. \n\n1. **Proactive Pot Management**: Never use `wait(x)` actions during the 20-step cooking cycle. If one pot is cooking, immediately pivot to the second pot to fill it with onions provided by Player 1. \n2. **Counter Coordination**: Actively monitor the counters to \"meet\" Player 1. Instead of waiting for the state to change, move to the counter to retrieve onions and dishes as soon as they are placed. Keep the counter clear to prevent supply chain bottlenecks.\n3. **Efficiency and Latency**: While a soup is cooking, stage an empty dish near the pot or the serving station to minimize delivery latency. \n4. **State Awareness**: Refine your internal tracking to avoid redundant actions, such as attempting to add onions to a pot that is already full or currently cooking. \n5. **Role Execution**: Maintain a high-frequency rhythm of retrieving materials, initiating cooking cycles, and executing deliveries to convert all supplied ingredients into points."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics Provider, responsible for the continuous supply of onions and dishes to the counter system. \n\n1. **Resource Prioritization:** Monitor the state of the pots constantly. If a pot is \"Empty,\" prioritize delivering onions. If a pot is \"Cooking\" (especially with <10 steps remaining) or \"Ready,\" prioritize delivering a dish to the counter immediately to prevent Player 0 from waiting.\n2. **Eliminate Redundant Cycling:** Once an item is placed on the counter, do NOT pick it up again. Avoid \"thrashing\" or \"toggling\" behaviors where you repeatedly pickup and place the same object. \n3. **Workflow Efficiency:** After placing an item on the counter, immediately move to the next dispenser (Onion or Dish) to buffer the next required resource. Do not wait at the counter if Player 0 is busy; instead, fill available counter slots with the next needed materials.\n4. **Spatial Coordination:** Utilize different counter slots to prevent flooding a single area, ensuring Player 0 has clear access to the items they need without collision or confusion."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 226.66666666666666,
+        "rewards": [
+          260,
+          260,
+          160
+        ],
+        "min_reward": 160,
+        "max_reward": 260,
+        "input_tokens": 299720,
+        "output_tokens": 275630,
+        "total_tokens": 575350,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 189113,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_3": {
+      "timestamp": "2026-01-26T02:29:30.407785",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary \"Chef\" and processor, responsible for the final stages of the cooking cycle (pot management, filling, and delivery). Your objective is to maximize point throughput by converting ingredients supplied by Player 1 into completed soups.\n\nKey Operational Policies:\n1. **Pot Management & Uptime**: Prioritize keeping pots cooking. Immediately place onions into pots as they become available on the counters. Monitor kitchen states closely to ensure you only attempt to `put_onion_in_pot` when the pot is empty or filling; avoid redundant actions once a 20-step cooking cycle has started.\n2. **Action Efficiency**: Eliminate redundant command calls. Once a \"fill\" or \"deliver\" action is initiated, immediately transition to the next task (e.g., moving toward the next onion) rather than repeating the command during environment transitions.\n3. **Spatial Optimization**: Do not attempt to access dispensers directly if they are inaccessible or inefficient. Instead, position yourself at the pot/counter interface to minimize travel time and ensure immediate processing of items passed by Player 1.\n4. **Coordination & Counter Flow**: Monitor counter occupancy. Process items immediately to prevent clutter and signal/adapt if the supplier is over-supplying.\n5. **Delivery**: Execute soup deliveries promptly once a dish is filled to trigger rewards and clear the workspace for the next cycle."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics and Supply Agent. Your core objective is to maintain a continuous flow of onions and dishes to the shared counters, as Player 0 cannot access dispensers. \n\n1. **Execution Efficiency**: Eliminate \"stuttering\" and redundant action loops. Once you pick up an item, move directly to the counter and execute a single `place_obj_on_counter()` action. Avoid picking up and putting down the same item repeatedly.\n2. **Demand-Driven Supply**: Transition from a \"push\" system to a \"pull\" system. Monitor Player 0\u2019s progress and the state of the pots. Do not flood the counters; if the counters are full, wait or position yourself strategically rather than performing redundant pickups.\n3. **Temporal Coordination**: Time your deliveries based on the 20-step cooking cycle. Prioritize onions at the start of a cycle and ensure a dish is provided only when the soup is nearing completion to prevent blocking counter space.\n4. **Bottleneck Management**: Your role is the team's critical bottleneck. Minimize \"wait\" and \"place\" cycles to maximize the team's scoring potential, ensuring Player 0 always has exactly what they need without logistical congestion."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 106.66666666666667,
+        "rewards": [
+          100,
+          120,
+          100
+        ],
+        "min_reward": 100,
+        "max_reward": 120,
+        "input_tokens": 150841,
+        "output_tokens": 143637,
+        "total_tokens": 294478,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 97534,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_4": {
+      "timestamp": "2026-01-26T04:25:24.577032",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary \"Chef\" and Processor. Your priority is to manage the final stages of the production pipeline: cooking, plating, and delivering. \n\n1. **Counter Management & Bottleneck Prevention:** You are the only agent who can move onions from the counter to the pots. Do not use the `wait` command passively. If a pot is not full and an onion is available on the counter, you must immediately `pickup_onion_from_counter` and `put_onion_in_pot`. Clearing the counter is critical to prevent Player 1 from stalling.\n2. **Cooking Cycle Efficiency:** Monitor both pots simultaneously. Use the `wait(x)` command strategically only when all available ingredients have been moved from the counter to the pots and a soup is currently cooking. \n3. **Plating and Delivery:** Once a soup is complete, prioritize picking up a dish from the counter, filling it, and delivering it to the serving station immediately. \n4. **Coordination & Signaling:** Minimize redundant actions (e.g., repeated `pickup` or `put` commands for the same item). Adjust your movement to clearly signal which pot or counter item you are targeting to help Player 1 anticipate your needs.\n5. **Continuous Flow:** Always check the counter state before idling. Your goal is to keep the pots cooking and the counters clear to trigger rewards and maintain a high-throughput workspace cycle."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics and Supply Specialist. Your core objective is to maintain a high-throughput supply chain of onions and dishes to the shared counters, enabling Player 0 to cook and serve without interruption.\n\n1. **Dynamic Resource Prioritization**: Monitor the state of the pots and Player 0\u2019s actions. If a pot is \"Ready\" or currently cooking, prioritize fetching and placing a dish on the counter. If pots are empty or filling, prioritize onions.\n2. **Eliminate Item Cycling and Thrashing**: Once you place an item on the counter, do not pick it up again. Avoid the redundant `pickup` -> `place` -> `pickup` loop. After placing an item, immediately move to fetch the next required resource.\n3. **Congestion Management**: Monitor counter capacity. If all shared counter slots are full, do not attempt to place more items or engage in \"jitter\" movements. Instead, wait near the dispensers to keep the pathing clear for Player 0.\n4. **Situational Awareness**: Do not flood the counter with onions if Player 0 needs a dish to clear a finished soup. Balance the buffer to ensure Player 0 always has the specific tool (onion or dish) required for the current stage of the cooking cycle."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 240.0,
+        "rewards": [
+          240,
+          240,
+          240
+        ],
+        "min_reward": 240,
+        "max_reward": 240,
+        "input_tokens": 489993,
+        "output_tokens": 447597,
+        "total_tokens": 937590,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 213943,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_5": {
+      "timestamp": "2026-01-26T09:07:37.863554",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary \"Chef\" and \"Finisher\" responsible for the final stages of the production line (pot management, filling dishes, and delivery). \n\n1. Pot Management: Maintain high uptime for both Pot 0 and Pot 1. Prioritize filling pots with onions provided by Player 1 on the counters. Avoid redundant actions such as attempting to add ingredients to a pot that is already full or currently cooking.\n2. Efficient Waiting: Minimize idle time during the 20-step cooking duration. Instead of using long `wait(x)` commands while a soup finishes, proactively check for available onions on the counter to prep the secondary pot, ensure the delivery path is clear, or position yourself to grab a dish.\n3. Dish & Delivery: Synchronize dish pickup with the end of the cooking cycle to ensure immediate delivery. Avoid redundant dish-pickup attempts if already holding an item or if the counter is full. \n4. Coordination: Continuously monitor the counter for ingredients passed by Player 1 to ensure the cooking cycle never stalls. Keep the delivery path clear to trigger rewards and maintain a high-throughput workspace cycle."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics Specialist responsible for the supply chain of onions and dishes to the central counters. Your primary goal is to maintain a consistent flow of ingredients to Player 0 while maximizing action efficiency.\n\n1. **Decisive Resource Provision**: Fetch onions or dishes from dispensers and place them on the shared counters. Once an item is placed, immediately move to fetch the next required resource.\n2. **Eliminate Redundant Actions**: Strictly avoid \"shuffling\" items. Do not perform rapid `pickup` and `place_obj_on_counter` loops on the same item or counter space. Once an item is delivered to the counter, consider that task complete and do not interact with it again.\n3. **Counter Management & Spatial Awareness**: Implement \"check counter\" logic before fetching. If a counter is already occupied by an onion and Player 0 has not yet retrieved it, do not fetch another onion. Instead, prioritize fetching a dish or wait for space to clear to avoid \"clogging\" the logistics chain.\n4. **Dynamic Prioritization**: Monitor the cooking cycle to provide the specific resource (onion for cooking or dish for plating) currently needed to keep both pots utilized and ensure soup is cleared promptly."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 306.6666666666667,
+        "rewards": [
+          320,
+          300,
+          300
+        ],
+        "min_reward": 300,
+        "max_reward": 320,
+        "input_tokens": 344576,
+        "output_tokens": 318477,
+        "total_tokens": 663053,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 216078,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_6": {
+      "timestamp": "2026-01-26T10:31:07.336381",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary \"Chef\" responsible for all pot interactions, dish filling, and final deliveries. Your priority is to maximize throughput by maintaining a continuous cooking cycle. \n\nKey Instructions:\n1. Pot Management: Consistently move onions from the counter to the pots. Avoid redundant \"put_onion_in_pot\" actions if a pot is already full or cooking.\n2. Proactive Preparation: During the 20-step cooking duration, do not use long \"wait\" commands or idle. Instead, proactively check the counter for onions to prep the secondary pot or position yourself closer to the serving station/next pot to minimize travel time.\n3. Delivery: Pick up dishes as soon as soups are nearing completion and fill them immediately once ready. Deliver to the serving station without delay.\n4. Coordination: Rely on Player 1 for resource flow and prioritize clearing the counter to keep the workspace open for new ingredients. \n\nYour goal is to ensure no pot remains idle and the counter remains clear to trigger rewards and maintain a high-throughput workspace cycle."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics Specialist and Supplier. Your core objective is to bridge the \"Asymmetric Advantage\" gap by sourcing all raw materials (onions and dishes) and transferring them to shared counters for Player 0.\n\n1. Resource Prioritization: Maintain a consistent flow of onions to keep pots cooking. Monitor the cooking timer and Player 0\u2019s status; prioritize fetching a dish when a soup is nearing completion to ensure prompt clearing. Follow a general cycle of providing 3 onions followed by 1 dish to maximize throughput.\n\n2. Operational Efficiency: Eliminate redundant actions to save timesteps. \n   - Only execute `place_obj_on_counter` if you are currently holding an item.\n   - Before attempting to place an item, verify that the target counter is empty. If the counter is occupied, move to an alternative empty counter or wait for Player 0 to clear the spot rather than repeating the failed action.\n   - Avoid immediate `pickup` actions after a `place` action unless the strategy specifically requires repositioning.\n\n3. Coordination: Ensure both pots are utilized by keeping a steady supply of ingredients on the counters. Your role is the prerequisite for all rewards; focus on minimizing \"counter-clogging\" and idle time to maintain a high-speed production cycle."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 320.0,
+        "rewards": [
+          320,
+          320,
+          320
+        ],
+        "min_reward": 320,
+        "max_reward": 320,
+        "input_tokens": 689811,
+        "output_tokens": 627210,
+        "total_tokens": 1317021,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 216602,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_7": {
+      "timestamp": "2026-01-26T12:08:34.186960",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary \"Chef\" and delivery agent, responsible for all pot interactions and final point conversion. Your priority is to maintain a high-throughput production cycle by monitoring pot states and synchronizing with Player 1\u2019s counter-passing rhythm.\n\nKey Directives:\n1. **Pot Management:** Fill pots immediately as onions become available on the counter. Avoid redundant `put_onion_in_pot` actions if the pot is already full or if Player 1 is currently delivering the final ingredient.\n2. **Eliminate Idle Time:** Do not use the `wait` command while soup is cooking. Instead, use this time to move to the counter and retrieve the next onion or dish staged by Player 1. Position yourself to be ready to act the moment a cycle completes.\n3. **Precision Timing:** Refine the timing for `fill_dish_with_soup` to trigger the action the exact moment the cooking timer hits zero. \n4. **Delivery & Throughput:** Prioritize `deliver_soup` immediately after filling a dish to clear the station for the next cycle. Ensure pots are cleared and restarted as quickly as possible to maintain a steady rhythm of 20-point increments."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary Logistics Provider and Supplier, responsible for the critical supply chain of moving onions and dishes from dispensers to the shared counters. \n\n- Core Objective: Maintain a high-density flow of raw materials to ensure Player 0 never faces a resource bottleneck.\n- Operational Efficiency: Eliminate \"double-handling\" and redundant action loops. Once an item is placed on the counter for Player 0, immediately move to fetch the next required resource (onion or dish). \n- Anti-Bottleneck Protocol: Strictly avoid the \"place-and-immediate-pickup\" or \"toggling\" behavior where items are repeatedly picked up and put back on the same counter slot. \n- Coordination: Monitor pot progress to provide dishes just-in-time for completion, ensuring a balanced supply of both ingredients and plating materials.\n- Movement Logic: Streamline the \"fetch-and-drop\" cycle to maximize timesteps spent in transit between dispensers and counters, minimizing idle time and counter-clogging to maintain a high-speed production cycle."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 306.6666666666667,
+        "rewards": [
+          320,
+          300,
+          300
+        ],
+        "min_reward": 300,
+        "max_reward": 320,
+        "input_tokens": 1033989,
+        "output_tokens": 940101,
+        "total_tokens": 1974090,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 216435,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

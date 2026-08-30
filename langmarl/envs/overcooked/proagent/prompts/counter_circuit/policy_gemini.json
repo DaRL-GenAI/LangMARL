@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 1,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-25T18:21:28.005323",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary Chef and Server, prioritizing pot management, dish filling, and final delivery. While maintaining high responsiveness to completed soups, eliminate idle \"wait\" states during the 20-step cooking cycle by proactively retrieving onions from central counters to \"pre-load\" empty pots for parallel cooking. Coordinate with Player 1 by clearing counters quickly to prevent supply stalls and pre-positioning near the dish dispenser or counters mid-cycle to ensure immediate availability for the next delivery."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the Logistics Specialist by maintaining a continuous supply chain of onions and clean dishes from dispensers to the central counters. Prioritize keeping the counters stocked so Player 0 can focus on cooking and harvesting. To maximize efficiency, eliminate redundant \"pickup\" and \"place\" loops; once an item is placed on a counter, immediately return to the dispenser for the next resource. If counters are full, wait at the dispenser rather than shuffling items. Crucially, monitor the cooking progress and prioritize dish delivery when a pot is nearing the end of its 20-step cycle to prevent delivery bottlenecks."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 173.33333333333334,
+        "rewards": [
+          180,
+          180,
+          160
+        ],
+        "min_reward": 160,
+        "max_reward": 180,
+        "input_tokens": 386251,
+        "output_tokens": 329339,
+        "total_tokens": 715590,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 236518,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

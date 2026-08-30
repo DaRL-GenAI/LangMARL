@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 1,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-25T18:29:45.092934",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\nAs the primary \"Chef,\" your priority is managing the final stages of production and delivery.\n1. **Pot Management:** Maintain high throughput by keeping both Pot 0 and Pot 1 active. Fill dishes and deliver soup immediately once cooking cycles are complete.\n2. **Eliminate Idle Time:** Avoid using long `wait(x)` commands while a pot is finishing. Instead, use these intervals to:\n   - Check the secondary pot for ingredient needs.\n   - Proactively pick up onions or dishes from the counter to keep slots open for Player 1.\n   - Position dishes closer to the serving station to minimize travel time.\n3. **Coordination:** Stay synchronized with Player 1\u2019s item passing. Transition quickly to processing items provided via the counter to maintain the supply chain.\n4. **Efficiency:** Stay near the center to minimize travel distance between pots and delivery stations, ensuring you remain the terminal link in the reward chain."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the Logistics Specialist by maintaining a continuous supply chain of onions and dishes to the central area. \n\n1. **Proactive Resource Supply**: Prioritize fetching onions when pots are empty and switching to dishes as soups near completion. Ensure Player 0 always has materials ready to minimize cooking station idle time.\n2. **Avoid Counter Over-filling**: Monitor the counter and Player 0\u2019s status. Do not attempt to `place_obj_on_counter` if the counter is full or if Player 0 is currently occupied with an item.\n3. **Eliminate Redundant Actions**: Prevent \"thrashing\" or pickup/place loops. If the handoff area is congested, wait at the dispenser or move to a clear space rather than cycling redundant actions.\n4. **Dynamic Prioritization**: If the pots are full and Player 0 is busy, prioritize fetching a dish for the next harvest rather than adding more onions to a bottlenecked counter.\n5. **Spatial Coordination**: Maintain awareness of the asymmetric map constraints; focus entirely on the supply chain and avoid idling near pots that Player 0 is already servicing."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 380.0,
+        "rewards": [
+          400,
+          380,
+          360
+        ],
+        "min_reward": 360,
+        "max_reward": 400,
+        "input_tokens": 350743,
+        "output_tokens": 285470,
+        "total_tokens": 636213,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 219393,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 1,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-25T18:59:02.906655",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:\nAs the primary chef, your priority is pot management, dish filling, and final delivery. \n1. **Pot Management:** Monitor the pot state closely. Avoid redundant `put_onion` actions once the pot is full or cooking.\n2. **Active Waiting:** During cooking cycles, do not remain idle. Use this time to clear counters of excess onions provided by Player 1 to prevent workspace clutter and bottlenecks.\n3. **Preparation:** Proactively move ingredients from counters to the pot or organize them for the next cycle while the current soup is cooking.\n4. **Efficiency:** Ensure a dish is ready and held just as the cooking timer finishes to minimize the time between cooking and delivery.\n5. **Coordination:** Adapt to Player 1's supply rate; if they over-supply, prioritize clearing space; if they under-supply, prepare to fetch ingredients if the layout allows."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Act as the primary logistics provider by supplying onions and dishes to the shared counters. To maximize efficiency and avoid bottlenecks, you must:\n1. **Eliminate Item Cycling:** Once you place an item on a counter, do not pick it up again. Move immediately to fetch the next required resource (e.g., if you just placed an onion, go get a dish or another onion).\n2. **Monitor Pot and Counter State:** Before fetching an onion, check the pot status. If the pot is full or cooking, prioritize fetching a dish or wait for a counter slot to clear. Do not flood the counters with redundant onions that Player 0 cannot yet use.\n3. **Buffer the Production Line:** Place items on empty counter slots to create a queue for Player 0, ensuring a steady flow without \"thrashing\" or repeatedly interacting with the same object.\n4. **Avoid Redundant Actions:** Only perform a pickup/place action if it advances the cooking cycle. Avoid \"jitter\" or repetitive movements that provide no value to the team."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 220.0,
+        "rewards": [
+          220,
+          220,
+          220
+        ],
+        "min_reward": 220,
+        "max_reward": 220,
+        "input_tokens": 297858,
+        "output_tokens": 320083,
+        "total_tokens": 617941,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 191829,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

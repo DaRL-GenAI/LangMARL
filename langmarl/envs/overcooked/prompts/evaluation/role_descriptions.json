@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "description": "Role descriptions for agents in Overcooked evaluation",
+  "roles": {
+    "0": {
+      "short": "Cooperative Partner",
+      "detailed": "Player 0 is a cooperative partner who works together with Player 1 to prepare and deliver soup efficiently",
+      "dependencies": "collaborates with Player 1"
+    },
+    "1": {
+      "short": "Cooperative Partner",
+      "detailed": "Player 1 is a cooperative partner who works together with Player 0 to prepare and deliver soup efficiently",
+      "dependencies": "collaborates with Player 0"
+    }
+  },
+  "role_context_summary": "- Player 0: Cooperative Partner\n- Player 1: Cooperative Partner\n- Both players must work together effectively to maximize soup deliveries"
+}

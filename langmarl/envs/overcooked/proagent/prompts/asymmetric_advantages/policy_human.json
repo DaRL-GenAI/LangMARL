@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 1,
+  "policies": {
+    "iteration_0": {
+      "timestamp": "",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Both players should work together to maximize score by keeping all pots actively cooking at all times. If any pot is empty or not full, players must prioritize picking up onions and placing them into the pot, since an idle pot wastes time and reduces throughput. Players should avoid picking up dishes too early; dishes are only needed when all pots are already cooking or when a soup is about to finish. While soups are cooking, the team should prepare the next cooking cycle by filling any available pot. Once a soup is ready, a player should immediately pick up a dish, fill it with soup, and deliver it. Waiting should only occur when no productive action is available."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Both players should work together to maximize score by keeping all pots actively cooking at all times. If any pot is empty or not full, players must prioritize picking up onions and placing them into the pot, since an idle pot wastes time and reduces throughput. Players should avoid picking up dishes too early; dishes are only needed when all pots are already cooking or when a soup is about to finish. While soups are cooking, the team should prepare the next cooking cycle by filling any available pot. Once a soup is ready, a player should immediately pick up a dish, fill it with soup, and deliver it. Waiting should only occur when no productive action is available."
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-18T17:51:03.202410",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Player 0 should prioritize timely delivery of filled dishes while effectively coordinating with Player 1. This includes waiting for Player 1 to be ready before picking up dishes and ensuring that the counter is clear for optimal use. Player 0 must focus on synchronizing actions, particularly when filling dishes and preparing for delivery, to avoid bottlenecks. Additionally, Player 0 should utilize wait actions strategically to enhance communication and efficiency, ensuring that all actions align with the overall goal of maximizing soup deliveries. Waiting should only occur when no productive action is available, and Player 0 should remain aware of the state of the pots and the need for ingredients like onions to streamline the cooking process."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: Player 1 should prioritize gathering onions and delivering dishes while ensuring effective coordination with Player 0. It is crucial to time actions to avoid bottlenecks, especially when both players are near the dish dispenser. Player 1 should be proactive in anticipating when to wait for Player 0 to fill dishes or signal readiness before attempting to deliver. Waiting should only occur when no productive action is available, and strategic wait actions should be employed to allow Player 0 to complete necessary tasks without interference, particularly when soup is ready for delivery."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 180.0,
+        "rewards": [
+          100,
+          200,
+          240
+        ],
+        "min_reward": 100,
+        "max_reward": 240,
+        "input_tokens": 345268,
+        "output_tokens": 292153,
+        "total_tokens": 637421,
+        "cost_usd": 0.227082,
+        "textgrad_estimated_tokens": 217042,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 2,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-25T18:21:29.996793",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary chef and delivery specialist. Your priority is to manage the pots and convert cooked soup into rewards. \n\n1. **Pot Management:** Monitor pot states constantly. Only add onions if the pot is not yet full and is NOT in the \"cooking\" state. Avoid redundant \"put_onion_in_pot\" actions once the cooking cycle has begun.\n2. **Efficiency & Timing:** During the 20-step cooking phase, do not remain idle. Use this time to retrieve a dish from the counter and position yourself at the pot. This ensures you can fill the dish and deliver the soup the moment it is ready.\n3. **Coordination:** Rely on Player 1 to supply onions and dishes via the counter. If the counter is empty while pots are cooking, move toward the counter to signal readiness and minimize the time spent waiting for resources.\n4. **Delivery Pipeline:** Maintain a high duty cycle by prioritizing the \"fill_dish_with_soup\" to \"deliver_soup\" sequence. Once a delivery is complete, immediately check the status of the second pot or the supply counter to restart the cycle."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1 (Logistics Provider):\nYour primary objective is to maintain a seamless supply chain of onions and dishes to the central counter for Player 0. To maximize team efficiency, follow these prioritized rules:\n\n1. **Dynamic Prioritization based on Pot State:**\n   - **If a pot is \"already cooked\" or \"cooking\" with <10 steps remaining:** Prioritize fetching a **dish** immediately.\n   - **If a pot is empty or has space for ingredients:** Prioritize fetching **onions**.\n   - Never hold an onion when the immediate team need is a dish to clear a finished soup.\n\n2. **Efficient Counter Management:**\n   - Avoid \"place_obj_on_counter\" if the counter is already occupied.\n   - Only move to the counter when Player 0 has cleared the previous item to prevent bottlenecking and wasted timesteps.\n   - Ensure the counter is always occupied with the *next* required resource rather than waiting at dispensers.\n\n3. **Eliminate Action Redundancy:**\n   - Avoid \"action looping\" (repeatedly pressing pickup at the dispenser). Once an item is successfully retrieved, move immediately to the counter.\n   - Minimize idle time by transitioning directly between the dispenser and the counter without hesitation.\n\n4. **Coordination:**\n   - Monitor Player 0\u2019s current task. If Player 0 is busy cooking, do not just \"wait\" at the counter; use that time to position yourself for the next required resource (dish or onion) based on the pot's progress."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 273.3333333333333,
+        "rewards": [
+          280,
+          280,
+          260
+        ],
+        "min_reward": 260,
+        "max_reward": 280,
+        "input_tokens": 393097,
+        "output_tokens": 314738,
+        "total_tokens": 707835,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 240239,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-25T19:33:33.679774",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: Act as the primary chef and delivery agent, responsible for pot management, filling dishes, and serving. \n\n1. Pot Management: Monitor Pot 0 and Pot 1. Only attempt to \"put_onion_in_pot\" if the pot is not full and not currently cooking. Avoid redundant action attempts when the distance to the pot is high or the pot is occupied to save timesteps for better positioning.\n2. Cooking Cycle Efficiency: During the 20-step cooking phase, do not idle. Proactively clear the supply counter by picking up onions or dishes provided by Player 1. If the counter is full, hold the item or move it to an open space to signal to Player 1 that the transfer point is ready for the next resource.\n3. Delivery: Prioritize \"fill_dish_with_soup\" and \"deliver_soup\" immediately once a pot finishes. \n4. Cycle Restart: After delivery, immediately check the counter for the next onion or dish to begin the next cycle, ensuring high uptime for both pots."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1 (Logistics Provider):\nYour primary objective is to maintain a continuous supply of onions and dishes to the transition counter for Player 0. \n\n1. **Efficient Resource Provisioning**: Proactively fetch onions and dishes from dispensers. Prioritize onions when pots are empty or filling, and dishes when soup is nearly finished.\n2. **Eliminate Redundant Actions**: Once you have placed an item on the counter, immediately transition to your next task. Do NOT repeat the \"place_obj_on_counter\" or \"pickup\" actions on the same item/location. Avoid \"looping\" behavior where you pick up and put down the same item repeatedly.\n3. **Counter State Awareness**: Before attempting to place an item, check if the target counter space is occupied. If the counter is full, do NOT spam the placement action. Instead, wait for Player 0 to clear the space, move to an alternative counter spot, or switch tasks (e.g., if you have an onion but the counter is full of onions, go fetch a dish).\n4. **Streamlined Logistics**: Minimize \"action noise\" by ensuring every move has a clear destination. Your goal is to bridge the gap between dispensers and the chef without creating bottlenecks through mechanical inefficiency or policy oscillation."
+      },
+      "training_stats": {
+        "paradigm": "central_credit",
+        "avg_reward": 173.33333333333334,
+        "rewards": [
+          180,
+          140,
+          200
+        ],
+        "min_reward": 140,
+        "max_reward": 200,
+        "input_tokens": 777456,
+        "output_tokens": 650216,
+        "total_tokens": 1427672,
+        "cost_usd": 0.0,
+        "textgrad_estimated_tokens": 236591,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}

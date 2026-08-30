@@ -1,0 +1,275 @@
+{
+  "version": "1.0",
+  "description": "Policy prompts for multi-agent training with TextGrad optimization",
+  "current_iteration": 10,
+  "policies": {
+    "iteration_0": {
+      "agent_0": {
+        "policy": "Game Strategy for Player 0:"
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1:"
+      }
+    },
+    "iteration_1": {
+      "timestamp": "2026-01-19T03:30:46.220815",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination**: At the start of each episode, Player 0 will be assigned the role of collecting onions, while Player 1 will focus on preparing the pot and filling dishes. This structured approach minimizes overlap and ensures both players contribute effectively to soup production.\n\n2. **Prioritize Pot Filling**: Player 0 will prioritize actions that lead to filling the pot as soon as it is empty. If Player 0 is near the pot, Player 1 should focus on collecting onions to ensure the pot is filled quickly and starts cooking without delay.\n\n3. **Reduce Redundant Actions**: Player 0 will streamline actions by focusing on those that directly lead to soup delivery. For instance, if Player 0 is holding a dish, they will immediately fill it with soup instead of attempting to pick up another dish.\n\n4. **Establish a Resource Flow Strategy**: Player 0 will develop a strategy to alternate actions based on the kitchen's current state. If Player 0 is collecting onions, Player 1 will focus on preparing dishes or monitoring the pot's status, creating a smoother resource flow and enhancing overall efficiency.\n\n5. **Utilize Waiting Actions Wisely**: Player 0 will avoid unnecessary waiting by repositioning for more effective actions. For example, while the pot is cooking, Player 0 can prepare to pick up a dish while Player 1 collects onions, ensuring readiness to act as soon as the pot is done.\n\n6. **Implement a Dynamic Action Plan**: As the game progresses, Player 0 will adapt strategies based on the kitchen's state. If the pot is full and cooking, Player 0 will focus on collecting dishes while Player 1 continues to gather onions, allowing the team to respond to changing conditions and maximize efficiency.\n\nBy following this structured and dynamic strategy, Player 0 will enhance coordination, streamline actions, and improve the overall efficiency of soup production and delivery, ultimately leading to a higher total reward."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Role Assignment**: At the beginning of each episode, Player 1 will focus on collecting onions while Player 2 prepares the pot and fills dishes. This clear division of labor will minimize overlap and enhance efficiency in soup production.\n\n2. **Prioritize Pot Filling**: Player 1 should prioritize actions that lead to filling the pot as soon as it is empty. If Player 1 is near the pot, Player 2 should concentrate on gathering onions to ensure the pot is filled quickly and starts cooking without delay.\n\n3. **Streamline Actions**: Player 1 will avoid redundant actions that do not contribute to soup production. For example, if Player 1 is holding a dish, they will immediately fill it with soup instead of attempting to pick up another dish.\n\n4. **Resource Flow Strategy**: Player 1 will coordinate with Player 2 to alternate actions based on the kitchen's current state. If Player 1 is collecting onions, Player 2 will focus on preparing dishes or monitoring the pot's status to create a smoother resource flow.\n\n5. **Effective Use of Waiting**: Player 1 will utilize waiting periods strategically. Instead of waiting idly, Player 1 will reposition themselves for more effective actions, such as preparing to pick up a dish while Player 2 collects onions.\n\n6. **Dynamic Action Plan**: As the game progresses, Player 1 will adapt strategies based on the kitchen's state. If the pot is full and cooking, Player 1 will focus on collecting dishes while Player 2 continues to gather onions, allowing the team to respond to changing conditions and maximize efficiency.\n\nBy implementing this structured approach, Player 1 will enhance coordination, streamline actions, and improve the overall efficiency of soup production and delivery, leading to a higher total reward."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 33.333333333333336,
+        "rewards": [
+          0,
+          80,
+          20
+        ],
+        "min_reward": 0,
+        "max_reward": 80,
+        "input_tokens": 292398,
+        "output_tokens": 260374,
+        "total_tokens": 552772,
+        "cost_usd": 0.2000841,
+        "textgrad_estimated_tokens": 188280,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_2": {
+      "timestamp": "2026-01-19T05:57:47.693875",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Synchronization**: Develop a clear strategy for synchronizing actions. For example, if Player 0 is picking up an onion, Player 1 should focus on placing it in the pot or preparing a dish. This minimizes redundant actions and waiting times, leading to a more efficient workflow.\n\n2. **Role Assignment**: Assign specific roles based on proximity to resources. If Player 0 is closer to the onion dispenser, they should collect onions, while Player 1 prepares dishes and delivers soup. This division of labor streamlines resource flow and ensures effective contributions from both players.\n\n3. **Proactive Pot Management**: Be proactive in managing the pot's status. Once the pot is filled, one player should monitor cooking time and prepare for the next cycle, while the other gathers ingredients. This ensures efficient pot utilization and optimized cooking times.\n\n4. **Minimize Waiting Times**: Aim to reduce waiting times by anticipating next actions. If a player is waiting for the pot to finish cooking, they should start preparing the next dish or gathering onions. This proactive approach keeps the team moving and reduces idle time.\n\n5. **Communication of Intent**: Signal intentions through actions, even without direct communication. If one player is filling a dish, the other should recognize this and focus on gathering ingredients or preparing for the next delivery. Establishing a non-verbal communication strategy enhances coordination.\n\n6. **Focus on Timely Deliveries**: Prioritize delivering soup as soon as it is ready. Once cooking is complete, the player holding the dish should head to the delivery area immediately, while the other player prepares the next batch of soup. This maximizes scoring opportunities.\n\n7. **Evaluate and Adjust Strategies**: After each delivery, evaluate performance and adjust strategies accordingly. Discuss any actions that led to delays or inefficiencies and modify approaches for the next cycle. Continuous improvement will enhance overall performance over time.\n\nBy implementing these strategies, Player 0 can significantly enhance coordination, optimize resource flow, and improve cooking efficiency, ultimately leading to a higher total reward."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Dynamic Role Assignment**: Assign specific roles based on proximity to resources and current game state. For instance, if Player 0 is closer to the onion dispenser, they should focus on collecting onions, while Player 1 prepares dishes and delivers soup. This flexibility allows for efficient resource flow and ensures both players contribute effectively.\n\n2. **Action Synchronization**: Develop a strategy for synchronizing actions. If one player is picking up an onion, the other should either place it in the pot or prepare a dish. This minimizes redundant actions and waiting times, leading to a more efficient workflow.\n\n3. **Proactive Pot Management**: Once the pot is filled, one player should monitor cooking time while the other gathers ingredients for the next dish. This proactive approach ensures the pot is utilized efficiently and cooking times are optimized.\n\n4. **Minimize Waiting Times**: Anticipate the next required actions to reduce idle time. If a player is waiting for the pot to finish cooking, they should start preparing the next dish or gathering ingredients.\n\n5. **Communication of Intent**: Use non-verbal cues to signal intentions. For example, if one player is filling a dish, the other should recognize this and focus on gathering ingredients or preparing for the next delivery, enhancing coordination.\n\n6. **Focus on Timely Deliveries**: Prioritize delivering soup as soon as it is ready. The player holding the dish should head to the delivery area immediately, while the other player prepares the next batch of soup to maximize scoring opportunities.\n\n7. **Evaluate and Adjust Strategies**: After each delivery, assess performance and adjust strategies accordingly. Discuss any delays or inefficiencies to modify approaches for the next cycle, fostering continuous improvement and better performance over time.\n\nBy implementing these strategies, Player 1 can significantly enhance coordination, optimize resource flow, and improve cooking efficiency, ultimately leading to a higher score in future episodes."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 20.0,
+        "rewards": [
+          20,
+          20,
+          20
+        ],
+        "min_reward": 20,
+        "max_reward": 20,
+        "input_tokens": 585024,
+        "output_tokens": 548022,
+        "total_tokens": 1133046,
+        "cost_usd": 0.41656679999999996,
+        "textgrad_estimated_tokens": 189850,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_3": {
+      "timestamp": "2026-01-19T08:22:47.806259",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination**: Establish a clear division of labor between agents. For example, one player should focus on collecting onions while the other prepares dishes and delivers soup. This will prevent redundancy in actions and ensure both players contribute effectively to maximizing soup deliveries.\n\n2. **Timing Awareness**: Be mindful of the cooking time of the pot. When the pot is actively cooking, one player should prioritize preparing dishes for delivery instead of collecting more onions. This strategic timing ensures that when the soup is ready, there is already a dish prepared for immediate delivery.\n\n3. **Avoiding Simultaneous Actions**: Avoid performing the same action at the same time. If one player is filling a dish, the other should focus on delivering or preparing for the next soup. Implementing a turn-based system for certain actions can help streamline the workflow.\n\n4. **Utilizing Both Pots**: If multiple pots are available, coordinate to use both pots simultaneously. This increases the output of soups and allows for more efficient cooking cycles. Players should alternate between pots to ensure both are utilized effectively.\n\n5. **Prioritizing Deliveries**: Prioritize delivering soups as soon as they are ready. Players should position themselves near the delivery area when the soup is close to completion. Establishing a routine where one player is always ready to deliver while the other prepares the next batch can significantly enhance scoring opportunities.\n\n6. **Resource Management**: Manage the flow of onions and dishes more effectively. Communicate current actions and intentions to ensure one player is not collecting onions while the other is also trying to do the same. Designate specific areas for each player to operate in, reducing overlap and confusion.\n\n7. **Feedback Loop**: Implement a feedback mechanism where players can signal readiness for specific actions (e.g., \"I am filling a dish\" or \"I am ready to deliver\"). This synchronization can improve overall efficiency.\n\n8. **Proactive Behavior**: Encourage players to anticipate team needs to maintain a continuous flow of actions, enhancing overall performance.\n\nBy incorporating these strategies into the episode actions, the agents can enhance their teamwork, improve cooking efficiency, and ultimately maximize their score in future episodes."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Establish a clear division of labor where Player 1 focuses on collecting onions while Player 2 prepares dishes and delivers soup. This will prevent redundancy in actions and ensure both players contribute effectively to maximizing soup deliveries.\n\n2. **Timing Awareness**: Be mindful of the cooking time of the pot. When the pot is actively cooking, Player 1 should prioritize preparing dishes for delivery rather than collecting more onions. This strategic timing ensures that when the soup is ready, there is already a dish prepared for immediate delivery.\n\n3. **Avoiding Simultaneous Actions**: Avoid performing the same action at the same time. For instance, if Player 1 is filling a dish, Player 2 should focus on delivering or preparing for the next soup. Implementing a turn-based system for certain actions can help streamline the workflow.\n\n4. **Utilizing Both Pots**: If the game allows for multiple pots, coordinate to use both pots simultaneously. This increases the output of soups and allows for more efficient cooking cycles. Players should alternate between pots to ensure both are utilized effectively.\n\n5. **Prioritizing Deliveries**: Prioritize delivering soups as soon as they are ready. Players should position themselves near the delivery area when the soup is close to completion. Establish a routine where one player is always ready to deliver while the other prepares the next batch to enhance scoring opportunities.\n\n6. **Resource Management**: Manage the flow of onions and dishes more effectively. Communicate current actions and intentions to ensure one player is not collecting onions while the other is also trying to do the same. Designate specific areas for each player to operate in, reducing overlap and confusion.\n\n7. **Feedback Loop**: Implement a feedback mechanism where players can signal readiness for specific actions (e.g., \"I am filling a dish\" or \"I am ready to deliver\"). This synchronization can improve overall efficiency.\n\n8. **Proactive Behavior**: Encourage players to anticipate team needs to maintain a continuous flow of actions, improving overall performance.\n\nBy incorporating these strategies into the episode actions, Player 1 can enhance teamwork, improve cooking efficiency, and ultimately maximize the score in future episodes."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 40.0,
+        "rewards": [
+          60,
+          0,
+          60
+        ],
+        "min_reward": 0,
+        "max_reward": 60,
+        "input_tokens": 881802,
+        "output_tokens": 823502,
+        "total_tokens": 1705304,
+        "cost_usd": 0.6263715,
+        "textgrad_estimated_tokens": 190321,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_4": {
+      "timestamp": "2026-01-19T10:38:28.210855",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination**: Establish clear roles for each player, such as \"Onion Gatherer\" and \"Dish Filler,\" to minimize redundancy and enhance efficiency. Implement a structured turn-taking system where one player focuses on collecting ingredients while the other prepares dishes or delivers soup, ensuring both players contribute effectively without overlap.\n\n2. **Prioritize Pot Utilization**: Optimize the use of the pot by ensuring both players actively contribute to filling it. If one player is placing onions in the pot, the other should prepare a dish or get ready to deliver the soup once it\u2019s cooked. Adjust the sequence of actions to fill the pot as quickly as possible, minimizing idle time.\n\n3. **Streamline Resource Flow**: Ensure a fluid flow of resources (onions and dishes) by avoiding unnecessary item holding. If Player 0 is holding a dish, Player 1 should focus on filling it with soup rather than picking up another dish or onion. Implement a communication rule where players indicate their current actions or intentions to avoid redundant actions.\n\n4. **Implement Timely Deliveries**: Encourage players to be proactive in delivering soup as soon as it is ready. This requires better timing and awareness of the cooking process. One player should monitor the cooking timer and alert the other when to prepare for delivery, ensuring immediate action when the pot finishes cooking.\n\n5. **Reduce Waiting Times**: Encourage players to take alternative actions during cooking times, such as preparing dishes or collecting onions, rather than waiting idly. For example, if Player 0 is waiting for the soup to cook, they could gather ingredients for the next cooking cycle.\n\n6. **Optimize Action Sequences**: Create a checklist of actions for each phase of the cooking process to ensure players are always working towards the next goal. For instance, if Player 0 is filling a dish, Player 1 should be ready to deliver it or prepare the next batch of onions, maintaining a continuous production flow.\n\n7. **Dynamic Role Assignment**: Allow flexibility in roles based on the game state. Players should adapt their tasks as needed, switching roles to optimize resource flow and respond to changing circumstances.\n\n8. **Feedback Mechanism**: Incorporate a feedback loop for players to learn from past actions, adjusting strategies based on previous successes or failures to refine their approach.\n\nBy implementing these strategies, Player 0 can significantly improve coordination, resource utilization, and overall efficiency, ultimately maximizing the team's score through timely soup deliveries."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Establish clear roles for players, such as \"Onion Gatherer\" and \"Dish Filler,\" to minimize redundancy and enhance efficiency. Implement a structured turn-taking system where one player focuses on collecting ingredients while the other prepares dishes or delivers soup, ensuring both players contribute effectively without overlap.\n\n2. **Prioritization of Actions**: Develop a priority system based on the game state. Players should focus on actions that align with immediate goals, such as filling pots or preparing dishes, depending on the current situation. For instance, if one player is placing onions in the pot, the other should prepare a dish or get ready to deliver the soup once it\u2019s cooked.\n\n3. **Dynamic Role Assignment**: Encourage flexibility in roles based on the game state. Players should adapt their tasks as needed, switching roles to optimize resource flow and respond to changing circumstances. This adaptability will help maintain a continuous production cycle.\n\n4. **Reduction of Redundant Actions**: Train players to recognize and avoid redundant actions. Implement a rule to check the status of pots and dishes before acting to minimize wasted efforts. For example, if one player is holding a dish, the other should focus on filling it with soup rather than picking up another dish or onion.\n\n5. **Strategic Waiting**: Utilize waiting times productively by preparing for upcoming actions, such as gathering resources or preparing dishes, to maintain a continuous production flow. If a player is waiting for the soup to cook, they could be tasked with picking up a dish or preparing for the next cooking cycle.\n\n6. **Feedback Mechanism**: Incorporate a feedback loop for players to learn from past actions. Adjust actions based on previous successes or failures to refine strategies continuously. This will enhance overall team performance.\n\n7. **Pot Utilization**: Ensure that the pot is always in use. Players should coordinate to keep the cooking cycle active, with one player monitoring the pot's status and communicating effectively. Proactive delivery of soup as soon as it is ready is crucial, requiring better timing and awareness of the cooking process.\n\n8. **Optimize Action Sequences**: Create a checklist of actions that need to be completed in each phase of the cooking process. This will ensure that players are always working towards the next goal, such as preparing for delivery or gathering ingredients, thus maximizing efficiency and scoring potential in future episodes."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 40.0,
+        "rewards": [
+          0,
+          60,
+          60
+        ],
+        "min_reward": 0,
+        "max_reward": 60,
+        "input_tokens": 1180305,
+        "output_tokens": 1120220,
+        "total_tokens": 2300525,
+        "cost_usd": 0.84917775,
+        "textgrad_estimated_tokens": 194369,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_5": {
+      "timestamp": "2026-01-19T11:23:10.858213",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination**: Implement a structured approach by designating specific roles for each player. For example, Player 0 will focus on collecting onions while Player 1 prepares to fill the pot. This division of labor will prevent redundancy and ensure both players contribute effectively to pot filling.\n\n2. **Prioritize Pot Filling**: Emphasize actions that lead to filling the pot before attempting to deliver soup. Players should immediately put onions in the pot as they are collected to avoid missed scoring opportunities.\n\n3. **Resource Management**: Develop a strategy for effective resource management. Player 0 can be responsible for picking up dishes while Player 1 focuses on gathering onions. This will maintain a steady flow of resources and ensure the pot is utilized efficiently.\n\n4. **Avoid Redundant Actions**: Train players to avoid simultaneous actions that lead to inefficiencies. For instance, if both players are trying to pick up onions or deliver soup at the same time, they should alternate actions based on the current state of the pot and dishes, ensuring one player is always contributing to pot filling while the other prepares for delivery.\n\n5. **Establish a Clear Workflow**: Implement a clear workflow that outlines the sequence of actions: Player 0 collects onions, Player 1 fills the pot, Player 0 picks up dishes, and both players deliver soup. This structured approach will streamline the process and maximize efficiency.\n\n6. **Communication Mechanism**: Introduce a simple signaling mechanism to help players coordinate better, such as predefined actions indicating readiness to fill the pot or deliver soup. For example, if Player 0 is ready to fill the pot, they could perform a specific action that signals Player 1 to focus on gathering dishes.\n\n7. **Feedback Loop for Learning**: Incorporate a feedback mechanism that allows players to learn from their actions. If an action does not lead to a reward (e.g., delivering soup when the pot is empty), players should adjust their strategies in future episodes to avoid repeating the same mistakes.\n\nBy implementing these strategies, Player 0 can improve coordination, enhance resource flow, and ultimately increase the number of successful soup deliveries, leading to a higher total reward."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Implement a structured approach by designating specific roles for each player. For example, Player 0 will focus on collecting onions while Player 1 prepares to fill the pot. This division of labor will prevent redundancy and ensure both players contribute effectively to pot filling.\n\n2. **Prioritize Pot Filling**: Emphasize actions that lead to filling the pot before attempting to deliver soup. Players should immediately place collected onions into the pot to avoid missed scoring opportunities.\n\n3. **Resource Management**: Develop a strategy for effective resource management. Player 0 can be responsible for picking up dishes while Player 1 gathers onions. This will maintain a steady flow of resources and ensure the pot is utilized efficiently.\n\n4. **Avoid Redundant Actions**: Train players to avoid simultaneous actions that lead to inefficiencies. For instance, if both players are trying to pick up onions at the same time, they should alternate based on the pot's state, ensuring one player contributes to filling while the other prepares for delivery.\n\n5. **Establish a Clear Workflow**: Create a clear workflow outlining the sequence of actions: Player 0 collects onions, Player 1 fills the pot, Player 0 picks up dishes, and both players deliver soup. This structured approach will streamline processes and maximize efficiency.\n\n6. **Communication Mechanism**: Introduce a simple signaling mechanism to help players coordinate better, such as predefined actions indicating readiness to fill the pot or deliver soup. For example, if Player 1 is ready to fill the pot, they can perform a specific action to signal Player 0 to focus on gathering dishes.\n\n7. **Feedback Loop for Learning**: Incorporate a feedback mechanism that allows players to learn from their actions. If an action does not yield a reward (e.g., delivering soup when the pot is empty), players should adjust their strategies in future episodes to avoid repeating mistakes.\n\nBy implementing these strategies, Player 1 can enhance coordination, optimize resource flow, and ultimately increase successful soup deliveries, leading to a higher total reward."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 20.0,
+        "rewards": [
+          40,
+          20,
+          0
+        ],
+        "min_reward": 0,
+        "max_reward": 40,
+        "input_tokens": 1472725,
+        "output_tokens": 1404077,
+        "total_tokens": 2876802,
+        "cost_usd": 1.0633549500000001,
+        "textgrad_estimated_tokens": 186939,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_6": {
+      "timestamp": "2026-01-20T02:02:04.931053",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination**: Implement a strategy where one player focuses on gathering ingredients while the other prepares dishes or delivers soup. This division of labor will reduce overlapping actions, particularly in picking up onions and filling dishes, ensuring both players contribute effectively to the cooking and delivery process.\n\n2. **Prioritize Delivery Actions**: Establish a clear sequence of actions that emphasizes immediate delivery once the soup is ready. Players should fill dishes and deliver them without delay, rather than continuing to gather ingredients.\n\n3. **Utilize the Pot Effectively**: Plan actions around the pot's cooking cycle. While one player waits for the soup to cook, the other should prepare the next set of ingredients or dishes, maintaining a continuous flow of cooking and delivery.\n\n4. **Resource Management Optimization**: Develop a strategy for smoother resource flow. If one player is near the dish dispenser, they should focus on filling dishes while the other gathers onions, streamlining the process and reducing idle time.\n\n5. **Anticipate Cooking Cycles**: Players should plan their actions based on the pot's cooking cycle. If the pot is nearing completion, one player should prepare to fill a dish while the other gathers ingredients for the next cycle, maximizing the number of soups delivered.\n\n6. **Reduce Waiting Time**: Minimize instances of waiting without productive actions. Players should always have a plan for their next steps, such as gathering ingredients or positioning for quick deliveries while waiting for the pot.\n\n7. **Feedback Loop for Learning**: Implement a feedback mechanism to help players learn from their actions. If an action does not lead to a reward, players should adjust their strategies in future episodes, reinforcing successful actions and discouraging redundant or overlapping actions.\n\nBy focusing on these strategies, Player 0 can enhance coordination, optimize resource management, and improve overall efficiency in producing and delivering soups, ultimately maximizing their score in the game."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Establish a clear division of labor where one player focuses on gathering ingredients (e.g., onions) while the other prepares dishes or delivers soup. This will minimize overlapping actions and enhance overall efficiency.\n\n2. **Prioritize Delivery Actions**: Once the soup is ready, players should immediately fill dishes and prioritize delivery over gathering additional ingredients. A clear sequence of actions should be established to emphasize delivery as the primary goal after cooking.\n\n3. **Utilize the Pot Effectively**: Plan actions around the pot's cooking cycle. While one player waits for the soup to cook, the other should prepare the next set of ingredients or dishes to maintain a continuous flow of cooking and delivery.\n\n4. **Resource Management Optimization**: Develop strategies for smoother resource flow. For instance, if one player is near the dish dispenser, they should focus on filling dishes while the other gathers onions, reducing idle time and streamlining the process.\n\n5. **Anticipate Cooking Cycles**: Players should plan their actions based on the pot's cooking cycle. If the pot is nearing completion, one player should prepare to fill a dish while the other gathers ingredients for the next cycle, maximizing soup delivery opportunities.\n\n6. **Reduce Waiting Time**: Minimize instances of waiting without productive actions. Players should always have a plan for their next steps, such as gathering ingredients or positioning themselves for quick deliveries while waiting for the pot.\n\n7. **Feedback Loop for Learning**: Implement a feedback mechanism to allow players to learn from their actions. If an action does not lead to a reward (e.g., no soup delivery), players should adjust their strategies in future episodes to avoid repeating ineffective actions, reinforcing successful strategies and discouraging redundancy.\n\nBy focusing on these strategies, Player 1 can enhance coordination, optimize resource management, and improve overall efficiency in producing and delivering soups, ultimately maximizing rewards in the game."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 33.333333333333336,
+        "rewards": [
+          60,
+          0,
+          40
+        ],
+        "min_reward": 0,
+        "max_reward": 60,
+        "input_tokens": 289102,
+        "output_tokens": 291858,
+        "total_tokens": 580960,
+        "cost_usd": 0.21848009999999998,
+        "textgrad_estimated_tokens": 187524,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_7": {
+      "timestamp": "2026-01-20T04:17:39.266335",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Action Coordination and Role Specialization**: Designate specific roles for each player based on their proximity to resources during different phases of the game. For example, one player can focus on gathering onions while the other prepares the pot. This structured approach will reduce overlapping actions and enhance overall efficiency.\n\n2. **Dynamic Role Assignment**: Implement a dynamic system that allows players to switch roles based on the current game state. If one player is waiting for the soup to cook, they should take on the role of gathering onions or preparing dishes to maintain a continuous flow of actions and resources.\n\n3. **Prioritize Soup Delivery**: Focus on actions that lead to soup delivery, as this is the primary source of points. Players should aim to fill dishes and deliver soup as soon as it is ready, avoiding unnecessary ingredient gathering when they have enough for a delivery.\n\n4. **Strategic Waiting**: Use wait actions strategically. If one player is waiting for the pot to finish cooking, they should prepare the next dish or gather additional onions. This proactive approach ensures that every moment is utilized effectively.\n\n5. **Optimize Resource Flow**: Ensure that players do not block each other while accessing resources. Establish clear paths for each player to follow, especially around the onion dispenser and cooking areas, to streamline the resource collection process.\n\n6. **Feedback Loop for Learning**: Introduce a feedback mechanism that allows players to learn from previous actions. If an action does not yield a reward, agents should adjust their strategies in subsequent timesteps. For instance, if both players attempt to fill dishes simultaneously and fail to deliver, they should recognize this pattern and modify their actions accordingly.\n\n7. **Effective Pot Utilization**: Ensure that the pot is always in use. If one player is waiting for the soup to cook, the other should prepare for the next cooking cycle by gathering onions or preparing dishes, ensuring that the pot is never idle.\n\n8. **Encourage Timely Actions**: Players should act quickly when the soup is ready. If one player is filling a dish, the other should be prepared to deliver it immediately. This urgency will help maximize points and keep the game moving efficiently.\n\nBy implementing these strategies, Player 0 can significantly enhance coordination, efficiency, and overall performance in the Overcooked game, leading to higher scores and more successful soup deliveries."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination and Role Designation**: Clearly define roles for each player during different phases of the game to minimize overlapping actions. For example, Player 1 can focus on gathering onions while Player 2 prepares the pot. This structured approach will enhance coordination and ensure both players contribute effectively to the cooking process.\n\n2. **Dynamic Role Assignment**: Implement a flexible system that allows players to switch roles based on the current game state. If Player 1 is waiting for the soup to cook, they should take on the role of gathering onions or preparing dishes, preventing idle time and maintaining a continuous flow of actions.\n\n3. **Prioritize Soup Delivery**: Emphasize actions that lead to soup delivery, as this is the primary source of points. Players should focus on filling dishes and delivering soup promptly, avoiding unnecessary ingredient gathering when they have enough for a delivery.\n\n4. **Strategic Use of Waiting**: Encourage players to use wait times productively. If Player 1 is waiting for the pot to finish cooking, they should prepare the next dish or gather additional onions, ensuring every moment is utilized effectively.\n\n5. **Optimize Resource Flow**: Improve the flow of onions and dishes by ensuring players do not block each other. Establish clear paths for each player to follow, especially around resource collection areas, to streamline the process.\n\n6. **Feedback Mechanism for Learning**: Introduce a feedback system that allows players to learn from their actions. If an action does not yield a reward, players should adjust their strategies in subsequent rounds. For instance, if both players attempt to fill dishes simultaneously and fail to deliver, they should recognize this pattern and modify their actions accordingly.\n\n7. **Effective Pot Utilization**: Ensure the pot is always in use. If one player is waiting for the soup to cook, the other should prepare for the next cooking cycle by gathering onions or preparing dishes, preventing idle time for the pot.\n\n8. **Encourage Timely Actions**: Instill a sense of urgency in players to act quickly when the soup is ready. If Player 1 is filling a dish, Player 2 should be prepared to deliver it immediately, maximizing points and maintaining game efficiency.\n\nBy implementing these strategies, Player 1 can significantly enhance coordination, efficiency, and overall performance in the game, leading to higher scores and more successful soup deliveries."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 46.666666666666664,
+        "rewards": [
+          60,
+          40,
+          40
+        ],
+        "min_reward": 40,
+        "max_reward": 60,
+        "input_tokens": 582521,
+        "output_tokens": 584830,
+        "total_tokens": 1167351,
+        "cost_usd": 0.43827615,
+        "textgrad_estimated_tokens": 191126,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_8": {
+      "timestamp": "2026-01-20T06:42:32.994264",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Enhanced Action Coordination**: Implement a turn-taking system where one player focuses on gathering onions while the other manages the pot and dishes. This will minimize simultaneous actions and improve efficiency in resource collection and dish preparation.\n\n2. **Action Prioritization**: Establish a priority system for actions based on the kitchen's current state. If the pot is cooking, prioritize actions that prepare for the next cooking cycle, such as gathering more onions or preparing dishes, rather than repeating non-contributory actions.\n\n3. **Dynamic Role Assignment**: Assign roles dynamically based on the game state. For example, if one player is closer to the dish dispenser, they should fill dishes while the other gathers ingredients. This adaptability will help maintain a smooth flow of resources.\n\n4. **Effective Use of Waiting Actions**: Use the \"wait\" action strategically. If one player is waiting for the pot to finish cooking, they should prepare for the next steps, such as gathering onions or positioning for delivery, to avoid idle time.\n\n5. **Feedback Loop for Learning**: Implement a feedback mechanism for agents to learn from previous actions. If an action does not yield a reward, they should adjust their strategy in subsequent timesteps, recognizing patterns that require changes, such as including delivery opportunities.\n\n6. **Focus on Timely Deliveries**: Be aware of delivery timing. Once the soup is ready, one player should transition immediately to delivery while the other prepares the next batch, ensuring a clear understanding of cooking times and delivery distances.\n\n7. **Resource Management**: Encourage effective resource management. If one player is holding an onion, they should communicate readiness to place it in the pot, allowing the other player to focus on gathering more onions or preparing dishes.\n\n8. **Utilization of Pot Capacity**: Both players should be aware of the pot's capacity and cooking status. If the pot is not full, one player should focus on adding onions while the other prepares dishes, maximizing cooking output.\n\nBy implementing these strategies, Player 0 can significantly enhance teamwork, resource flow, and overall efficiency in producing and delivering soups, ultimately leading to higher scores and more successful deliveries."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Implement a turn-taking system where Player 1 focuses on gathering onions while Player 2 manages the pot and dishes. This will minimize simultaneous actions and enhance efficiency.\n\n2. **Action Prioritization**: Establish a priority system for actions based on the kitchen's current state. If the pot is cooking, Player 1 should prioritize gathering more onions or preparing dishes instead of repeating non-contributory actions.\n\n3. **Dynamic Role Assignment**: Assign roles dynamically based on the game state. If Player 1 is closer to the dish dispenser, they should fill dishes while Player 2 gathers ingredients, ensuring a smooth flow of resources.\n\n4. **Effective Waiting Actions**: Use waiting actions strategically. If Player 1 is waiting for the pot to finish cooking, they should prepare for the next steps, such as gathering onions or positioning for delivery.\n\n5. **Feedback Loop for Learning**: Implement a feedback mechanism for Player 1 to learn from previous actions. If an action does not yield a reward, they should adjust their strategy in subsequent steps, such as including delivery when opportunities arise.\n\n6. **Focus on Delivery Timing**: Player 1 should be aware of delivery timing. Once the soup is ready, they should transition immediately to delivery while preparing the next batch, considering cooking times and distances.\n\n7. **Resource Management**: Encourage Player 1 to manage resources effectively. If holding an onion, they should communicate readiness to place it in the pot, allowing Player 2 to focus on gathering or preparing.\n\n8. **Utilize Pot Capacity**: Player 1 should be aware of the pot's capacity and cooking status. If the pot is not full, they should focus on adding onions while Player 2 prepares dishes, maximizing cooking output.\n\nBy following these strategies, Player 1 can significantly enhance teamwork, resource flow, and overall efficiency in producing and delivering soups, leading to higher scores and more successful deliveries."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 20.0,
+        "rewards": [
+          40,
+          20,
+          0
+        ],
+        "min_reward": 0,
+        "max_reward": 40,
+        "input_tokens": 871080,
+        "output_tokens": 885866,
+        "total_tokens": 1756946,
+        "cost_usd": 0.6621816,
+        "textgrad_estimated_tokens": 189773,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_9": {
+      "timestamp": "2026-01-20T09:12:33.211948",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Enhanced Action Coordination**: Implement a turn-taking mechanism where Player 0 focuses on gathering onions while Player 1 prepares dishes or manages the pot. Establish a clear sequence of actions, such as Player 0 always picking up onions first, to reduce conflicts and improve efficiency.\n\n2. **Utilization of Pot Capacity**: Encourage communication about the pot's status. If Player 0 is adding onions to the pot, Player 1 should prepare the dish or gather additional ingredients. Designate one player to monitor the pot and inform the other when it is full and ready for cooking.\n\n3. **Timing of Actions**: Develop a rhythm based on the cooking time of the pot. For example, if the pot takes 20 time steps to cook, Player 0 should plan to be ready to deliver the soup immediately after it finishes cooking, possibly by waiting near the delivery area while Player 1 focuses on cooking.\n\n4. **Resource Flow Optimization**: Alternate actions based on the current state of the kitchen. If Player 0 is holding an onion, Player 1 should focus on picking up a dish or preparing to fill it. This will help maintain a continuous flow of resources and minimize idle time.\n\n5. **Prioritization of Deliveries**: Prioritize delivery actions immediately after the soup is ready. Once the pot is full and the soup is cooked, Player 0 should be ready to fill the dish and deliver it without delay, establishing a clear priority for delivery to maximize scoring.\n\n6. **Feedback Loop for Learning**: Implement a feedback mechanism for players to learn from previous actions. Track successful and unsuccessful actions to refine strategies continuously, allowing players to adjust their approach based on past experiences.\n\nBy focusing on these strategies, Player 0 can significantly enhance coordination, optimize resource management, and increase successful soup deliveries, ultimately improving team performance in the game."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Implement a turn-taking mechanism where Player 0 focuses on gathering onions while Player 1 prepares dishes or manages the pot. Establish a clear sequence of actions to minimize conflicts, such as Player 0 always picking up onions first.\n\n2. **Utilization of Pot Capacity**: Encourage communication about the pot's status. If Player 0 is adding onions to the pot, Player 1 should prepare the dish or gather additional ingredients. Designate one player to monitor the pot and inform the other when it is full and ready for cooking.\n\n3. **Timing of Actions**: Develop a rhythm based on the cooking time of the pot. For example, if the pot takes 20 time steps to cook, Player 1 should be ready to deliver the soup immediately after it finishes cooking, possibly by waiting near the delivery area while Player 0 focuses on cooking.\n\n4. **Resource Flow Optimization**: Alternate actions based on the kitchen's current state. If Player 0 is holding an onion, Player 1 should focus on picking up a dish or preparing to fill it. This will help maintain a continuous flow of resources and reduce idle time.\n\n5. **Prioritization of Deliveries**: Prioritize delivery actions immediately after the soup is ready. Once the pot is full and the soup is cooked, Player 1 should be prepared to fill the dish and deliver it without delay, establishing a clear priority for delivery to maximize scoring.\n\n6. **Feedback Loop for Learning**: Implement a feedback mechanism to learn from previous actions. Track successful and unsuccessful actions to refine strategies continuously, allowing players to adjust their approach in real-time based on the current game state.\n\nBy focusing on these strategies, Player 1 can significantly improve coordination, optimize resource management, and enhance the likelihood of successful soup deliveries, ultimately maximizing the team's score."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 20.0,
+        "rewards": [
+          60,
+          0,
+          0
+        ],
+        "min_reward": 0,
+        "max_reward": 60,
+        "input_tokens": 1163778,
+        "output_tokens": 1153711,
+        "total_tokens": 2317489,
+        "cost_usd": 0.8667932999999999,
+        "textgrad_estimated_tokens": 189183,
+        "textgrad_queries": 3
+      }
+    },
+    "iteration_10": {
+      "timestamp": "2026-01-20T10:06:47.800952",
+      "agent_0": {
+        "policy": "Game Strategy for Player 0: \n\n1. **Enhanced Action Coordination**: Establish clear roles for each player to minimize overlap and enhance efficiency. Designate Player 0 as the primary onion gatherer while Player 1 focuses on dish preparation and delivery. This structured approach will streamline workflow and reduce redundant actions, ultimately improving team performance in the game.\n\n2. **Pot Utilization**: Encourage communication about the pot's status. If one pot is cooking, Player 0 should prioritize gathering ingredients for the next batch, ensuring both pots are utilized effectively to maximize cooking efficiency.\n\n3. **Minimize Idle Time**: Players should remain engaged in productive actions. If Player 0 is waiting for the pot to finish cooking, they should actively gather onions or prepare dishes to maintain a continuous flow of actions and reduce downtime.\n\n4. **Resource Flow Optimization**: Implement strategies for anticipating each other's needs. For example, if Player 0 is near the onion dispenser, Player 1 should prepare a dish in advance, ensuring that as soon as the soup is ready, it can be filled and delivered without delay.\n\n5. **Action Timing**: Train players to time their actions based on the cooking duration of the pot. If the pot has a few timesteps left, Player 0 should prepare to pick up the dish just before the soup is done, minimizing the time between cooking and delivery.\n\n6. **Dynamic Role Adjustment**: Encourage flexibility in roles based on the current game state. If Player 0 notices Player 1 struggling to gather onions, they should switch roles temporarily to assist, leading to better overall team performance.\n\n7. **Feedback Loop**: After each delivery, players should quickly assess what worked and what didn\u2019t. A brief pause in actions can help recalibrate strategies based on the kitchen's current state, allowing for adjustments to improve efficiency.\n\nBy implementing these strategies, Player 0 can significantly enhance cooking efficiency, optimize pot utilization, and ensure a smoother resource flow, ultimately leading to more successful soup deliveries and higher scores."
+      },
+      "agent_1": {
+        "policy": "Game Strategy for Player 1: \n\n1. **Action Coordination**: Establish a clear division of roles to minimize overlap and enhance efficiency. Designate Player 1 as the primary onion gatherer while Player 0 focuses on dish preparation and delivery. This structured approach will streamline workflow and optimize resource flow.\n\n2. **Pot Utilization**: Communicate the pot's status through actions. If one pot is cooking, Player 1 should prioritize gathering ingredients for the next batch, ensuring both pots are utilized effectively to maximize cooking efficiency.\n\n3. **Minimize Idle Time**: Encourage continuous engagement in productive actions. If Player 1 is waiting for the pot to finish cooking, they should gather onions or prepare dishes to maintain a steady flow of actions and reduce downtime.\n\n4. **Resource Flow Optimization**: Anticipate each other's needs to ensure a smooth flow of onions and dishes. For example, if Player 0 is near the onion dispenser, Player 1 should prepare a dish in advance, allowing for immediate filling and delivery once the soup is ready.\n\n5. **Action Timing**: Train players to time their actions based on the pot's cooking duration. As the pot nears completion, Player 1 should prepare to pick up the dish, minimizing the time between cooking and delivery.\n\n6. **Dynamic Role Adjustment**: Encourage flexibility in roles based on the game state. If Player 1 notices Player 0 struggling to gather onions, they should temporarily switch roles to assist, enhancing overall team performance.\n\n7. **Feedback Loop**: After each delivery, quickly assess what worked and what didn\u2019t. Use brief pauses to recalibrate strategies based on the kitchen's current state, adjusting actions to improve efficiency.\n\nBy implementing these strategies, Player 1 can significantly enhance cooking efficiency, optimize pot utilization, and ensure a smoother resource flow, ultimately leading to more successful soup deliveries and higher scores."
+      },
+      "training_stats": {
+        "paradigm": "central_global",
+        "avg_reward": 66.66666666666667,
+        "rewards": [
+          20,
+          100,
+          80
+        ],
+        "min_reward": 20,
+        "max_reward": 100,
+        "input_tokens": 1457573,
+        "output_tokens": 1442490,
+        "total_tokens": 2900063,
+        "cost_usd": 1.08412995,
+        "textgrad_estimated_tokens": 187816,
+        "textgrad_queries": 3
+      }
+    }
+  }
+}
