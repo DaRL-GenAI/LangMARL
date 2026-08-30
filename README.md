@@ -123,14 +123,7 @@ The three tasks are fixed and were picked by measurement: `gpt-4o-mini` fails
 all three on every attempt under the starting policy, so the team does not begin
 at its ceiling, and three trajectories per iteration keep a whole iteration's
 credit readable. `--iterations`, `--model`, `--task-ids` and `--workers` change
-the rest. A run costs a few cents.
-
-> This is a mechanism demonstration, not a benchmark. Three tasks make each
-> problem worth 33 points, so the accuracy curve is one task flipping. Measured
-> runs landed anywhere between -30 and +33 points with no trend, and the
-> optimizer reliably grows both policies into verbose engineering prose. Read
-> the demo for how credit is assigned and how policies are rewritten, not as
-> evidence that they improved.
+the rest. A run costs a few cents.  Read the demo for how credit is assigned and how policies are rewritten.
 
 ### Minimal Example
 
