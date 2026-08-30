@@ -10,7 +10,7 @@ This demo shows the core LangMARL loop WITHOUT benchmark data:
 
 Requirements:
   pip install langmarl
-  export OPENAI_API_KEY=sk-...
+  echo 'OPENAI_API_KEY=sk-...' > .env      # git-ignored, loaded on import
 
 Usage:
   python examples/quick_start.py

@@ -9,7 +9,7 @@ import langmarl
 from langmarl.config.llm import LLMConfig
 
 BASE_URL = os.environ["OPENAI_BASE_URL"]
-API_KEY = os.environ["OPENAI_API_KEY"]  # export OPENAI_API_KEY=... before running
+API_KEY = os.environ["OPENAI_API_KEY"]  # from .env at the project root, or the shell
 
 actor_llm = LLMConfig(
     name="gpt-3.5-turbo",

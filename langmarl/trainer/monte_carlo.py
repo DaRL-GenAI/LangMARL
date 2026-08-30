@@ -55,7 +55,7 @@ class MonteCarloTrainer:
         self.run_id = self.store.create_run(f"{config.exp_name}_{timestamp}", config)
         self.checkpoint = PolicyCheckpoint(self.store, self.run_id, config.num_agents)
         self.trajectory_store = TrajectoryStore(self.store, self.run_id)
-        self.run_logger = RunLogger(self.store, self.run_id)
+        self.run_logger = RunLogger(self.store, self.run_id, level=config.log_level)
 
         # Token tracking
         llm = config.llm
@@ -165,6 +165,7 @@ class MonteCarloTrainer:
 
         def _run_one(idx, task):
             traj = self.env.collect_trajectory(policies, task)
+            self._record_usage(traj)
             self.trajectory_store.save(iteration, idx, traj)
             self.run_logger.episode_saved(iteration, idx, traj.reward)
             return traj
@@ -231,6 +232,28 @@ class MonteCarloTrainer:
                     accumulated[agent].append(grad)
 
         return accumulated
+
+    def _record_usage(self, trajectory: Trajectory) -> None:
+        """Book a trajectory's rollout tokens against the run's tracker.
+
+        Environments report usage either per step or as an episode total; both
+        shapes are accepted. This covers actor calls only -- the critic and the
+        optimizer bill through their own clients.
+        """
+        totals = {"input": 0, "output": 0}
+        for step in trajectory.steps:
+            tokens = step.get("tokens") or {}
+            totals["input"] += tokens.get("input", 0)
+            totals["output"] += tokens.get("output", 0)
+
+        if not any(totals.values()):
+            episode_tokens = trajectory.metadata.get("tokens") or {}
+            totals["input"] = episode_tokens.get("input", 0)
+            totals["output"] = episode_tokens.get("output", 0)
+
+        if any(totals.values()):
+            with self._stats_lock:
+                self.token_tracker.add_usage(totals["input"], totals["output"])
 
     def _collect_stats(self, trajectories: list[Trajectory]) -> dict:
         rewards = [t.reward for t in trajectories]

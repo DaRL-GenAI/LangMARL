@@ -72,11 +72,23 @@ pip install -e ".[overcooked]"     # + Overcooked (see docs/environments.md)
 pip install -e ".[all]"            # everything
 ```
 
-Set your API key -- never hardcode it in a script:
+Put your API key in a `.env` file at the project root. It is git-ignored, and
+importing `langmarl` picks it up automatically -- including for Overcooked's
+ProAgent, so there is one place to set it and one place to rotate it:
 
 ```bash
-export OPENAI_API_KEY="sk-..."
+cat > .env <<'EOF'
+OPENAI_API_KEY=sk-...
+EOF
 ```
+
+Any OpenAI-compatible endpoint works; add `OPENAI_BASE_URL` alongside it. A real
+environment variable still overrides the file, so CI secrets and one-off
+`OPENAI_API_KEY=... python ...` invocations keep working, and
+`LANGMARL_NO_DOTENV=1` turns the lookup off.
+
+Never hardcode a key in a tracked file -- `tests/test_no_secrets.py` fails the
+suite if one appears.
 
 Fetch the benchmark data. Only the small evaluation splits ship with the repo;
 this rebuilds the large HotPotQA and MATH files from upstream:
@@ -85,6 +97,40 @@ this rebuilds the large HotPotQA and MATH files from upstream:
 pip install -e ".[data]"
 python scripts/prepare_data.py
 ```
+
+### See it run
+
+`examples/demo_humaneval_pair.py` makes the credit assignment legible. Two
+agents work on three HumanEval tasks: a **Coder** writes an implementation, a
+**Tester** writes unit tests for it -- which are really executed -- and reports
+what failed, and the Coder revises in light of that report. Only the Coder ever
+writes code, so the two contributions stay separable: the Tester is judged on
+whether its report was accurate and useful, the Coder on drafting and on acting
+on the report. Both policies start threadbare (`"You write Python code."`,
+`"You write unit tests."`) so the rewriting is visible.
+
+```bash
+python examples/demo_humaneval_pair.py
+```
+
+It narrates each iteration: the credit the critic assigns to each agent on every
+trajectory, how `LLM_agg` reconciles them into one gradient, how `LLM_opt`
+rewrites each policy, and a per-iteration breakdown of which role earned the
+score -- including how often the Tester's verdict on a draft matched what the
+official tests said about the same draft.
+
+The three tasks are fixed and were picked by measurement: `gpt-4o-mini` fails
+all three on every attempt under the starting policy, so the team does not begin
+at its ceiling, and three trajectories per iteration keep a whole iteration's
+credit readable. `--iterations`, `--model`, `--task-ids` and `--workers` change
+the rest. A run costs a few cents.
+
+> This is a mechanism demonstration, not a benchmark. Three tasks make each
+> problem worth 33 points, so the accuracy curve is one task flipping. Measured
+> runs landed anywhere between -30 and +33 points with no trend, and the
+> optimizer reliably grows both policies into verbose engineering prose. Read
+> the demo for how credit is assigned and how policies are rewritten, not as
+> evidence that they improved.
 
 ### Minimal Example
 
@@ -342,7 +388,8 @@ class MyEnv(langmarl.BaseEnvironment):
 langmarl.register_env("my_env")(MyEnv)
 ```
 
-See `examples/quick_start.py` for a complete custom environment example.
+See `examples/quick_start.py` for a complete custom environment example, and
+[`examples/demo_humaneval_pair.py`](#see-it-run) for a larger one.
 
 ---
 
@@ -376,14 +423,24 @@ docs/                      # Environment setup notes
 <details>
 <summary><b>How to configure API key?</b></summary>
 
-**Option 1**: Set environment variable:
+**Option 1** (recommended): a `.env` file at the project root. It is git-ignored
+and loaded automatically when `langmarl` is imported.
+
+```bash
+echo 'OPENAI_API_KEY=sk-...' > .env
+```
+
+**Option 2**: a real environment variable, which overrides the file:
+
 ```bash
 export OPENAI_API_KEY="sk-..."
 ```
 
-**Option 2**: Set `api_key_env_var` inside the config's `llm` object to point at a different environment variable.
+**Option 3**: set `api_key_env_var` inside the config's `llm` object to read a
+different variable, e.g. `TOGETHER_API_KEY`. Put that one in `.env` too.
 
-Never put a literal key in a tracked file. `tests/test_no_secrets.py` fails the suite if one appears.
+Never put a literal key in a tracked file. `tests/test_no_secrets.py` fails the
+suite if one appears.
 
 </details>
 

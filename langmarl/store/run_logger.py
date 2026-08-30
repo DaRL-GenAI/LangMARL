@@ -10,7 +10,21 @@ from .base import BaseStore
 class RunLogger:
     """Structured event logger for a training run."""
 
-    def __init__(self, store: BaseStore, run_id: str, console: bool = True):
+    def __init__(
+        self,
+        store: BaseStore,
+        run_id: str,
+        console: bool = True,
+        level: str = "INFO",
+    ):
+        """
+        Args:
+            store: where the run's log file lives.
+            run_id: identifies this run's logger.
+            console: also mirror events to the terminal.
+            level: threshold for the console only. The run's log file always
+                keeps DEBUG, so quieting the terminal never loses the record.
+        """
         self.store = store
         self.run_id = run_id
         self._logger = logging.getLogger(f"langmarl.{run_id}")
@@ -21,12 +35,14 @@ class RunLogger:
             log_path = store.get_log_path(run_id)
             if log_path:
                 fh = logging.FileHandler(log_path)
+                fh.setLevel(logging.DEBUG)
                 fh.setFormatter(logging.Formatter(
                     '%(asctime)s [%(levelname)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
                 self._logger.addHandler(fh)
 
             if console:
                 ch = logging.StreamHandler()
+                ch.setLevel(getattr(logging, str(level).upper(), logging.INFO))
                 ch.setFormatter(logging.Formatter(
                     '%(asctime)s [%(levelname)s] %(message)s', datefmt='%H:%M:%S'))
                 self._logger.addHandler(ch)

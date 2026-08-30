@@ -38,6 +38,8 @@ from langmarl.config.base import (
     OvercookedConfig,
     PistonballConfig,
 )
+from langmarl.config.dotenv import _autoload as _autoload_dotenv
+from langmarl.config.dotenv import find_dotenv, load_dotenv, parse_dotenv
 from langmarl.config.llm import LLMConfig, get_llm_config, list_available_models
 from langmarl.core.base import (
     BaseAgent,
@@ -70,6 +72,10 @@ from langmarl.trainer.callbacks import (
 
 # Trainer
 from langmarl.trainer.monte_carlo import MonteCarloTrainer
+
+# Read the project's .env before anything asks for an API key. Real environment
+# variables win over the file; LANGMARL_NO_DOTENV=1 skips it entirely.
+_autoload_dotenv()
 
 
 def train(config_path: str, **overrides):
@@ -148,6 +154,9 @@ __all__ = [
     "OvercookedConfig",
     "PistonballConfig",
     "LLMConfig",
+    "load_dotenv",
+    "find_dotenv",
+    "parse_dotenv",
     "get_llm_config",
     "list_available_models",
     # LLM

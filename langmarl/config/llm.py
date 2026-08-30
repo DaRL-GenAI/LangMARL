@@ -32,8 +32,9 @@ class LLMConfig:
         key = os.getenv(self.api_key_env_var)
         if not key:
             raise ValueError(
-                f"API key not found. Set '{self.api_key_env_var}' environment variable "
-                f"or provide 'api_key' in config."
+                f"API key not found. Put '{self.api_key_env_var}=...' in a .env file "
+                f"at the project root, export it as an environment variable, or set "
+                f"'api_key' in the config."
             )
         return key
 

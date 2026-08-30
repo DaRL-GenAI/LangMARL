@@ -104,6 +104,7 @@ class TrajectoryFormatter:
         reward = episode.get('reward', 0.0)
         verified_reward = episode.get('verified_reward', None)
         verification_details = episode.get('verification_details', '')
+        evaluation_feedback = episode.get('evaluation_feedback', '')
 
         lines = []
         lines.append("=== CREDIT ASSIGNMENT TRAJECTORY ===")
@@ -151,6 +152,10 @@ class TrajectoryFormatter:
         lines.append("=== FINAL EVALUATION ===")
         lines.append(f"Final Answer: {final_answer}")
         lines.append(f"Score: {reward:.2f} (heuristic)")
+        # Why the episode scored what it did. Without this the critic can only
+        # see *that* the team failed, and invents plausible-sounding reasons.
+        if evaluation_feedback:
+            lines.append(f"Feedback: {evaluation_feedback}")
         if verified_reward is not None:
             lines.append(f"Verified Score: {verified_reward:.2f} (LLM judge / test execution)")
         if verification_details:

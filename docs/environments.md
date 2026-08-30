@@ -16,6 +16,14 @@ pip install -e ".[data]"          # pandas + pyarrow, for the data builder
 python scripts/prepare_data.py
 ```
 
+Set your API key once, in a git-ignored `.env` at the project root. Importing
+`langmarl` loads it, so every environment -- including Overcooked's ProAgent,
+which reads the key through its own config chain -- sees the same value:
+
+```bash
+echo 'OPENAI_API_KEY=sk-...' > .env
+```
+
 ### What `prepare_data.py` does
 
 Only the small evaluation splits are committed to git. The large files are

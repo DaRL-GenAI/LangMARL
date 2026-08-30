@@ -94,3 +94,22 @@ def test_missing_template_variable_is_reported_clearly(llm, tmp_path):
 
     with pytest.raises(KeyError, match="critic_prompt_vars"):
         critic._render(TRAJECTORY, ["agent_1", "agent_2"])
+
+
+def test_credit_assignment_shows_why_the_episode_scored_what_it_did():
+    """The critic must see the failure reason, not just the score.
+
+    Without it, credit assignment can only observe *that* the team failed and
+    invents plausible-sounding causes, which compound into harmful policies.
+    """
+    from langmarl.core.trajectory import TrajectoryFormatter
+
+    episode = {
+        "task": {"question": "q"},
+        "transitions": [{"agent": "agent_1", "output": "a"}],
+        "reward": 0.0,
+        "evaluation_feedback": "AssertionError on the empty-input case",
+    }
+    for render in (TrajectoryFormatter.format_trajectory,
+                   TrajectoryFormatter.format_for_credit_assignment):
+        assert "AssertionError on the empty-input case" in render(episode), render.__name__

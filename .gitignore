@@ -30,6 +30,7 @@ llm_config.json
 .vscode/
 .idea/
 .DS_Store
+.env
 
 # Vendored third-party environments: installed via pip, see docs/environments.md
 env/PettingZoo/

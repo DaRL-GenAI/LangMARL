@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
+from string import Formatter
 from typing import Optional
 
 from openai import OpenAI
@@ -92,6 +93,7 @@ class CentralizedCritic(BaseCritic):
             self._client = OpenAI(api_key=api_key)
         self._model = llm.model_string
         self.logger = logging.getLogger(__name__)
+        self._warned_unused = False
 
     def _load_prompts(self):
         self.game_context = self.prompt_loader.load_game_context(self.env_name)
@@ -284,7 +286,9 @@ class CentralizedCritic(BaseCritic):
         """Fill the evaluation template, letting the environment add variables."""
         variables = self._build_common_vars(trajectory, agents)
         if self.env is not None:
-            variables.update(self.env.critic_prompt_vars(self.paradigm, agents))
+            supplied = self.env.critic_prompt_vars(self.paradigm, agents)
+            variables.update(supplied)
+            self._warn_unused(supplied)
         template = f"{self.game_context}\n\n{self.evaluation_template}"
         try:
             return template.format(**variables)
@@ -295,6 +299,27 @@ class CentralizedCritic(BaseCritic):
                 f"did not supply via critic_prompt_vars(). Available: "
                 f"{sorted(variables)}"
             ) from None
+
+    def _warn_unused(self, supplied: dict) -> None:
+        """Point out environment variables this paradigm's template never reads.
+
+        Templates differ between paradigms -- central_global takes role_context,
+        central_credit does not -- so guidance written for one silently vanishes
+        in the other. Say so once rather than letting it disappear.
+        """
+        if not supplied or self._warned_unused:
+            return
+        self._warned_unused = True
+
+        template = f"{self.game_context}\n\n{self.evaluation_template}"
+        used = {name for _, name, _, _ in Formatter().parse(template) if name}
+        unused = sorted(set(supplied) - used)
+        if unused:
+            self.logger.warning(
+                "Environment %r supplied critic variables the %r template does not "
+                "use, so they will not reach the critic: %s",
+                self.env_name, self.paradigm, ", ".join(unused),
+            )
 
     def _create_global_prompt(self, trajectory: str, agents: Optional[list] = None) -> str:
         return self._render(trajectory, agents or self.all_agents)
