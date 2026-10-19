@@ -48,7 +48,9 @@ overcooked = [
     "rich",
 ]
 pistonball = ["pettingzoo[butterfly]==1.25.0", "supersuit", "pygame", "numpy"]
-data = ["pandas", "pyarrow"]
+# pyarrow 26 needs NumPy 2 at import time without declaring it, which breaks
+# [all] alongside the overcooked extra's numpy<2.
+data = ["pandas", "pyarrow<26"]
 all = ["langmarl[overcooked,pistonball,data]"]
 dev = ["pytest", "pytest-cov", "ruff", "mypy", "pre-commit"]
 docs = ["mkdocs", "mkdocs-material", "mkdocstrings[python]"]

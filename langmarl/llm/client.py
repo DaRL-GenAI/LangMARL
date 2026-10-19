@@ -43,6 +43,7 @@ class LLMClient:
             params["max_completion_tokens"] = max_tokens
         else:
             params["max_tokens"] = max_tokens
+        params.update(self.config.extra_params)
 
         response = self._client.chat.completions.create(**params)
         return response.choices[0].message.content.strip()
@@ -66,6 +67,7 @@ class LLMClient:
             params["max_completion_tokens"] = max_tokens
         else:
             params["max_tokens"] = max_tokens
+        params.update(self.config.extra_params)
 
         response = self._client.chat.completions.create(**params)
         text = response.choices[0].message.content.strip()

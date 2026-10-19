@@ -231,10 +231,15 @@ BUILDERS = {
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("tasks", nargs="*", choices=list(BUILDERS),
+    # No choices= here: on Python < 3.12 argparse rejects the empty default of a
+    # nargs="*" positional with choices, so the names are checked by hand.
+    parser.add_argument("tasks", nargs="*", metavar="{" + ",".join(BUILDERS) + "}",
                         help="which benchmarks to prepare (default: all)")
     parser.add_argument("--force", action="store_true", help="rebuild even if already present")
     args = parser.parse_args()
+    unknown = [t for t in args.tasks if t not in BUILDERS]
+    if unknown:
+        parser.error(f"invalid choice: {', '.join(unknown)} (choose from {', '.join(BUILDERS)})")
 
     for name in args.tasks or list(BUILDERS):
         BUILDERS[name](force=args.force)

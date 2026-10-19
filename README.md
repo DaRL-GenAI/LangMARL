@@ -2,6 +2,7 @@
 
 # LangMARL: Natural Language Multi-Agent Reinforcement Learning
 
+[![Homepage](https://img.shields.io/badge/Homepage-LangMARL-2E8B57?style=flat-square&logo=googlechrome&logoColor=white)](https://darl-genai.github.io/LangMARL_homepage/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.00722-b31b1b?style=flat-square)](https://arxiv.org/abs/2604.00722)
@@ -12,7 +13,7 @@
   <a href="https://github.com/DaRL-GenAI/LangMARL"><img src="https://img.shields.io/github/stars/DaRL-GenAI/LangMARL?style=for-the-badge&logo=github&logoColor=white&color=red" alt="GitHub Stars"></a>
 </p>
 
-[**Quick Start**](#quick-start) · [**Tutorial**](https://langmarl-tutorial.readthedocs.io/) · [**Key Components**](#key-components) · [**Environments**](#environments) · [**Citation**](#citation) · [**FAQ**](#faq)
+[**Homepage**](https://darl-genai.github.io/LangMARL_homepage/) · [**Quick Start**](#quick-start) · [**Tutorial**](https://langmarl-tutorial.readthedocs.io/) · [**Key Components**](#key-components) · [**Environments**](#environments) · [**Citation**](#citation) · [**FAQ**](#faq)
 
 </div>
 
@@ -30,32 +31,22 @@ LLM-based multi-agent systems struggle to autonomously evolve coordination strat
 
 ## Overview
 
-LangMARL applies **Centralized Training with Decentralized Execution (CTDE)** to language-space multi-agent reinforcement learning. It mirrors the syntax and abstractions of classical MARL libraries (e.g., TorchRL), redefining core components in natural language space.
+LangMARL applies **Centralized Training with Decentralized Execution (CTDE)** in language space, with an API that mirrors classical MARL libraries such as TorchRL. A policy is an LLM system prompt, a gradient is an LLM-written improvement note, and a **Centralized Language Critic** reads the full trajectory and assigns each agent its own credit. At execution time, each agent acts on its own policy only.
 
-| Traditional MARL | LangMARL |
-|---|---|
-| Neural network parameters $\theta$ | Text policy (LLM system prompt) |
-| Numerical gradient $\nabla\theta$ | LLM-generated improvement note |
-| Critic value function $Q(s,a)$ | Centralized Language Critic evaluating full trajectories |
-| Credit assignment $r \to \{c^1, ..., c^N\}$ | Agent-specific language credits via causal attribution |
-| Policy gradient $\nabla_\theta J$ | Language policy gradient estimator |
-| Parameter update $\theta \leftarrow \theta - \alpha\nabla$ | Language policy optimizer: `new_policy = LLM_opt(policy, aggregated_gradient)` |
-| Decentralized execution | Each agent uses only its own policy (system prompt) |
+<p align="center">
+  <img src="assets/toolkit.png" width="100%" alt="LangMARL mirrors TorchRL abstractions in language space">
+</p>
 
----
+<p align="center">
+  <img src="assets/pipeline.png" width="100%" alt="LangMARL system pipeline">
+  <br>
+  <em>(a) Language policy actors act decentrally; (b) the centralized language critic assigns per-agent credits; (c) the gradient estimator turns credits into policy critiques; (d) the optimizer rewrites each policy.</em>
+</p>
 
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| **CTDE in Language Space** | Centralized Training with Decentralized Execution using natural language policies and gradients |
-| **Credit Assignment** | Per-agent causal credit attribution via a Centralized Language Critic |
-| **Two Training Paradigms** | `central_global` (shared gradient) and `central_credit` (per-agent credit assignment) |
-| **Three Environments** | Language tasks (QA/Math/Coding), Pistonball physics simulation, and Overcooked cooking collaboration |
-| **Flexible LLM Backend** | Supports OpenAI, Gemini, Llama, Qwen, DeepSeek, Ollama via unified `LLMConfig` |
-| **Resumable Training** | Episodes cached to disk; training resumes from last completed iteration |
-| **Plugin Architecture** | Register custom environments via `langmarl.register_env()` |
-| **Emergent Role Specialization** | Agents self-organize into complementary roles through credit-driven optimization |
+- **Two training paradigms:** `central_global` (one shared gradient) and `central_credit` (per-agent credit assignment).
+- **Three environments behind one plugin interface:** language tasks (QA/Math/Coding), Pistonball, and Overcooked; add your own with `langmarl.register_env()`.
+- **Any LLM backend:** OpenAI, Gemini, Llama, Qwen, DeepSeek, and Ollama through a single `LLMConfig`.
+- **Resumable training:** episodes are cached to disk, so a run resumes from its last completed iteration.
 
 ---
 
@@ -67,11 +58,16 @@ LangMARL applies **Centralized Training with Decentralized Execution (CTDE)** to
 git clone https://github.com/DaRL-GenAI/LangMARL.git
 cd LangMARL
 
-pip install -e .                   # core library + language tasks
-pip install -e ".[pistonball]"     # + Pistonball
-pip install -e ".[overcooked]"     # + Overcooked (see docs/environments.md)
-pip install -e ".[all]"            # everything
+uv venv --python 3.11 && source .venv/bin/activate
+
+uv pip install -e .                   # core library + language tasks
+uv pip install -e ".[pistonball]"     # + Pistonball
+uv pip install -e ".[overcooked]"     # + Overcooked (see docs/environments.md)
+uv pip install -e ".[all]"            # everything
 ```
+
+[uv](https://docs.astral.sh/uv/) is recommended; plain `pip install -e .` in any
+Python 3.10+ environment works as well.
 
 Put your API key in a `.env` file at the project root. It is git-ignored, and
 importing `langmarl` picks it up automatically -- including for Overcooked's
@@ -95,15 +91,15 @@ Fetch the benchmark data. Only the small evaluation splits ship with the repo;
 this rebuilds the large HotPotQA and MATH files from upstream:
 
 ```bash
-pip install -e ".[data]"
+uv pip install -e ".[data]"
 python scripts/prepare_data.py
 ```
 
-### See it run
+### Demonstration
 
 `examples/demo_humaneval_pair.py` makes the credit assignment legible. Two
-agents work on three HumanEval tasks: a **Coder** writes an implementation, a
-**Tester** writes unit tests for it -- which are really executed -- and reports
+agents work on HumanEval: a **Coder** writes an implementation, a
+**Tester** writes unit tests for it (which are really executed) and reports
 what failed, and the Coder revises in light of that report. Only the Coder ever
 writes code, so the two contributions stay separable: the Tester is judged on
 whether its report was accurate and useful, the Coder on drafting and on acting
@@ -117,37 +113,75 @@ python examples/demo_humaneval_pair.py
 It narrates each iteration: the credit the critic assigns to each agent on every
 trajectory, how `LLM_agg` reconciles them into one gradient, how `LLM_opt`
 rewrites each policy, and a per-iteration breakdown of which role earned the
-score -- including how often the Tester's verdict on a draft matched what the
+score, including how often the Tester's verdict on a draft matched what the
 official tests said about the same draft.
 
-The three tasks are fixed and were picked by measurement: `gpt-4o-mini` fails
-all three on every attempt under the starting policy, so the team does not begin
-at its ceiling, and three trajectories per iteration keep a whole iteration's
-credit readable. `--iterations`, `--model`, `--task-ids` and `--workers` change
-the rest. A run costs a few cents.  Read the demo for how credit is assigned and how policies are rewritten.
+HumanEval is split, with a fixed seed, into a train split and a held-out test
+split. Each iteration trains on a fresh draw of 8 tasks, and the 80 test tasks
+are scored before training and after every iteration, so the curve shows whether
+what the policies learned transfers to problems they never saw. Actors decode at
+temperature 0, and each rewritten policy is held to `--max-policy-words`
+(default 50) so it stays short enough to read. `--n-train`, `--n-test`,
+`--seed`, `--iterations`, `--model` and `--workers` change the rest.
 
-### Minimal Example
+#### How the demo works
+
+The demo is a short use of the library API. Its four steps map onto one training loop.
+
+**1. Register the environment.** `CoderTesterEnv` plugs into LangMARL through
+`register_env`. Its `collect_trajectory` runs one episode under the current
+policies: the Coder drafts, the Tester's tests run against the draft, and the
+Coder revises. The team's reward is 1.0 if the revision passes the official
+HumanEval tests and 0.0 otherwise.
 
 ```python
 import langmarl
 
-config = langmarl.LanguageTaskConfig(
-    task_type="qa",
+@langmarl.register_env("humaneval_pair")
+class CoderTesterEnv(langmarl.BaseEnvironment):
+    def collect_trajectory(self, policies, task) -> langmarl.Trajectory:
+        ...  # Coder drafts -> Tester tests and reports -> Coder revises
+```
+
+**2. Configure the task.** `paradigm="central_credit"` makes the critic assign
+a separate credit to each agent, rather than one score for the whole team.
+
+```python
+config = langmarl.BaseConfig(
+    exp_name="humaneval_pair",
     paradigm="central_credit",
     llm=langmarl.LLMConfig.from_preset("gpt-4o-mini"),
+    num_agents=2,
+    num_iterations=5,
+    trajectories_per_iteration=8,
 )
+env = langmarl.make_env("humaneval_pair", config)
+```
 
-env = langmarl.make_env("language", config)
+**3. Assemble the trainer.** `CentralizedCritic` reads each full trajectory and
+attributes the outcome to each agent. `PolicyGradientOptimizer` turns those
+credits into a language gradient per agent (`LLM_agg`) and rewrites each policy
+(`LLM_opt`). The demo subclasses both only to print what they do.
+
+```python
 trainer = langmarl.MonteCarloTrainer(
     config=config,
     env=env,
-    critic=langmarl.CentralizedCritic(config),
+    critic=langmarl.CentralizedCritic(config, env=env),
     optimizer=langmarl.PolicyGradientOptimizer(config.get_optimizer_llm()),
 )
+```
+
+**4. Train.** Each iteration rolls out a batch of training tasks, assigns
+credit, aggregates the gradients, and updates both policies. The demo calls
+`trainer.train_one_iteration(i)` in a loop so it can score the held-out test
+split between iterations; `trainer.train()` runs the training loop alone.
+
+```python
 trainer.train()
 ```
 
-Or train from a config file in one line:
+Any shipped environment can also be trained from a config file:
 
 ```python
 langmarl.train("configs/language_task/qa_central_credit.json")
@@ -276,7 +310,7 @@ Multi-agent physics simulation from PettingZoo.
 Each of the 20 pistons is an agent carrying its own language policy.
 
 ```bash
-pip install -e ".[pistonball]"
+uv pip install -e ".[pistonball]"
 langmarl train --config configs/pistonball/central_credit.json
 ```
 
@@ -288,7 +322,7 @@ Two ProAgent players whose planning prompt is the policy being optimized.
 Needs a patched `overcooked_ai_py`; see [docs/environments.md](docs/environments.md).
 
 ```bash
-pip install -e ".[overcooked]"
+uv pip install -e ".[overcooked]"
 python scripts/setup_overcooked.py    # overcooked_ai 0.0.1 is not on PyPI
 langmarl train --config configs/overcooked/cramped_room_central_credit.json
 ```
@@ -398,7 +432,7 @@ langmarl.register_env("my_env")(MyEnv)
 ```
 
 See `examples/quick_start.py` for a complete custom environment example, and
-[`examples/demo_humaneval_pair.py`](#see-it-run) for a larger one.
+[`examples/demo_humaneval_pair.py`](#demonstration) for a larger one.
 
 ---
 

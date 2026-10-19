@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Watch LangMARL's credit assignment work, on two agents solving HumanEval.
 
-A Coder writes an implementation; a Tester writes unit tests for it, runs them,
-and emits the final implementation -- repairing the Coder's draft when its own
-tests expose a bug. The team is scored by HumanEval's official tests, so both
-roles move the number: a Coder that drafts badly and a Tester that breaks
-working code both cost the team.
+A Coder writes an implementation; a Tester writes unit tests for it, which are
+really executed, and reports what failed; the Coder then writes the final
+implementation in light of that report. The team is scored by HumanEval's
+official tests, so both roles move the number: a Coder that drafts badly and a
+Tester whose false alarm talks the Coder out of working code both cost the team.
 
 This script exists to make the *mechanism* legible. For every trajectory it
 prints what the centralized critic attributed to each agent, how those credits
@@ -13,33 +13,38 @@ are reconciled into one gradient, and how that gradient rewrites each policy.
 Both policies start deliberately threadbare ("You write Python code.") so the
 rewriting is visible.
 
-It runs three HumanEval tasks that gpt-4o-mini fails under the starting policy,
-so there is somewhere to go and so a whole iteration's credit fits on screen.
+HumanEval is split, with a fixed seed, into a train split and a held-out test
+split (--n-test, default 80). Each iteration trains on a fresh draw of --n-train
+tasks (default 8), and the test split is scored before training and after every
+iteration with no critic and no update, so the curve measures transfer to
+problems the policies never saw. Actors decode at temperature 0 to keep that
+curve from being dominated by sampling noise.
 
-It is NOT a benchmark. Three tasks put every problem worth 33 points, so the
-accuracy it reports is one task flipping. Measured runs -- on these three and on
-a sample of ten -- came out between -30 and +33 points with no trend, and the
-optimizer reliably grows both policies into verbose engineering prose. Read the
-curve as a sanity check that the loop closes, not as evidence of improvement;
-read the credit and policy text for what the demo is actually for.
+Left unchecked, the optimizer grows both policies into verbose engineering
+prose, so each rewrite is held to --max-policy-words (default 50).
 
 Usage:
     echo 'OPENAI_API_KEY=sk-...' > .env      # git-ignored, loaded on import
     python examples/demo_humaneval_pair.py
     python examples/demo_humaneval_pair.py --iterations 3 --model gpt-4o
-    python examples/demo_humaneval_pair.py --task-ids HumanEval/32,HumanEval/132
+    python examples/demo_humaneval_pair.py --n-train 12 --n-test 40 --seed 1
+    python examples/demo_humaneval_pair.py --max-policy-words 30
 """
 
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import os
+import random
 import re
 import subprocess
 import sys
 import tempfile
 import textwrap
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import replace
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -134,6 +139,26 @@ def strip_test_harness(code: str) -> str:
     return "\n".join(out)
 
 
+def strip_self_tests(code: str) -> str:
+    """Drop test code the Coder appended to its implementation.
+
+    Top-level asserts, ``test_*`` functions and bare calls run on import, so a
+    wrong expected value in the Coder's own test fails a correct implementation
+    before the official tests get to run. Testing is the Tester's job; only the
+    implementation is scored.
+    """
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return code
+    tree.body = [
+        node for node in tree.body
+        if not isinstance(node, (ast.Assert, ast.Expr))
+        and not (isinstance(node, ast.FunctionDef) and node.name.startswith("test"))
+    ]
+    return ast.unparse(tree)
+
+
 def extract_code(text: str, entry_point: str | None = None) -> str:
     """Pull the implementation out of a markdown-fenced LLM reply.
 
@@ -210,7 +235,9 @@ def run_custom_tests(code: str, tests: str, timeout: float = 10.0) -> tuple[bool
 CODER_PROMPT = """Task:
 {problem}
 
-Write a complete Python implementation. Put it in one ```python block."""
+Write a complete Python implementation. Put it in one ```python block.
+Output only the implementation: no tests, no asserts, no example calls. Testing
+is the Tester's job."""
 
 TESTER_PROMPT = """Task:
 {problem}
@@ -244,7 +271,8 @@ Result of running them against your implementation:
 
 Give the FINAL implementation in one ```python block. If the tests found a real
 bug, fix it. If they passed, or if a failure is the test's mistake rather than
-yours, keep your implementation as it is -- do not rewrite working code."""
+yours, keep your implementation as it is -- do not rewrite working code.
+Output only the implementation: no tests, no asserts, no example calls."""
 
 
 @langmarl.register_env("humaneval_pair")
@@ -258,12 +286,14 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
         self.num_agents = 2
         self.agent_names = ["agent_1", "agent_2"]
         self.llm = langmarl.LLMClient(config.get_actor_llm())
-        self.tasks = load_tasks(getattr(config, "task_ids", None))
+        self.train_tasks, self.test_tasks = split_tasks(config.n_test, config.split_seed)
+        self._rng = random.Random(config.split_seed)
 
-    # A fixed task set every iteration, so the accuracy curve measures the
-    # policies rather than the luck of the draw.
+    # Each iteration trains on a fresh draw from the train split, so a policy
+    # cannot score by memorising a handful of problems. The test split is never
+    # sampled here; it only scores the policies (see evaluate_on).
     def sample_tasks(self, num_samples: int, seed: int | None = None) -> list[dict]:
-        return list(self.tasks)
+        return self._rng.sample(self.train_tasks, min(num_samples, len(self.train_tasks)))
 
     def reset(self, task: dict) -> dict:
         return {"task": task}
@@ -287,7 +317,7 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
         draft_out, tok1 = self.llm.chat_with_usage(
             coder_policy, CODER_PROMPT.format(problem=problem)
         )
-        draft_code = extract_code(draft_out, entry)
+        draft_code = strip_self_tests(extract_code(draft_out, entry))
 
         # 2. Tester writes tests -- and they are actually run.
         tester_out, tok2 = self.llm.chat_with_usage(
@@ -310,7 +340,7 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
                 tests=tests, test_result=report,
             ),
         )
-        final_code = extract_code(final_out, entry)
+        final_code = strip_self_tests(extract_code(final_out, entry))
 
         draft_ok, _ = run_humaneval(draft_code, task)
         final_ok, final_note = run_humaneval(final_code, task)
@@ -421,7 +451,9 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
             "case to handle and return an answer for, not to reject. Input "
             "validation, defensive scaffolding and extra documentation earn "
             "nothing and often lose points. Solving the stated problem "
-            "correctly is the only thing that scores.\n\n"
+            "correctly is the only thing that scores. Only the Coder's "
+            "implementation is scored: the Coder must not write tests, which "
+            "are the Tester's job.\n\n"
             "**For agent_1 (Coder):**\n"
             "- Was the first draft correct?\n"
             "- Given the Tester's report, did it revise well -- fixing a real bug, "
@@ -435,9 +467,16 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
             "- Was the failure it reported specific enough to act on?\n"
             "- It cannot write code, so judge only the quality of its report.\n\n"
             "IMPORTANT: each agent's policy is a standing instruction reused on "
-            "problems it has never seen. Write every credit as a TRANSFERABLE "
-            "working habit -- 'check the empty-input case before returning', "
-            "'do not rewrite code your tests did not flag'. Never mention this "
+            "problems it has never seen, and it is scored on held-out problems "
+            "it never trains on. So summarize, as far as possible, the HIGH-LEVEL "
+            "STRATEGY behind what went right or wrong: whether the agent "
+            "followed the specification exactly, how it decided whether to "
+            "revise, whether it stayed within its role. Ask what general habit "
+            "would have prevented this failure on any problem, and state that "
+            "habit -- 'trace every docstring example through the code before "
+            "answering', 'do not add checks or cases the spec does not ask "
+            "for', 'do not rewrite code unless a test shows a real bug'. "
+            "Never mention this "
             "problem's subject matter, function name, or specific values; a "
             "credit that only makes sense for this task is useless."
         )
@@ -448,27 +487,36 @@ class CoderTesterEnv(langmarl.BaseEnvironment):
         return {"role_context": roles}
 
 
-#: The three tasks this demo runs. gpt-4o-mini failed all three on 3 of 3
-#: attempts under the threadbare Coder policy, and each fails by misreading the
-#: spec -- rounding .5 away from zero, digit sums of negative numbers, swapping
-#: case before substituting vowels -- which is the kind of habit a policy could
-#: plausibly fix. Easier tasks put the team near its ceiling from the first
-#: iteration, and more of them make the per-trajectory credit too long to read.
-HARD_TASKS = ["HumanEval/99", "HumanEval/145", "HumanEval/93"]
+def split_tasks(n_test: int, seed: int) -> tuple[list[dict], list[dict]]:
+    """Split HumanEval's 164 tasks into disjoint train and test sets.
 
-
-def load_tasks(task_ids: list[str] | None = None) -> list[dict]:
-    """Load the demo's tasks by id, defaulting to :data:`HARD_TASKS`."""
+    The split is a seeded shuffle, so every run with the same ``--seed`` holds
+    out the same test problems.
+    """
     if not HUMANEVAL.exists():
         sys.exit(f"missing {HUMANEVAL.relative_to(REPO)} -- run scripts/prepare_data.py")
     with open(HUMANEVAL) as f:
-        by_id = {r["task_id"]: r for r in map(json.loads, filter(str.strip, f))}
+        tasks = [json.loads(line) for line in f if line.strip()]
+    if not 0 < n_test < len(tasks):
+        sys.exit(f"--n-test must be between 1 and {len(tasks) - 1}")
+    random.Random(seed).shuffle(tasks)
+    return tasks[n_test:], tasks[:n_test]
 
-    wanted = task_ids or HARD_TASKS
-    missing = [t for t in wanted if t not in by_id]
-    if missing:
-        sys.exit(f"unknown task ids: {', '.join(missing)}")
-    return [by_id[t] for t in wanted]
+
+def evaluate_on(env, policies: dict, tasks: list[dict], workers: int) -> float:
+    """Pass rate of ``policies`` on ``tasks``: rollouts only, no critic, no update.
+
+    A rollout that errors out (an API failure, say) counts as a fail.
+    """
+    def run(task):
+        try:
+            return env.collect_trajectory(policies, task).reward
+        except Exception:
+            return 0.0
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        rewards = list(pool.map(run, tasks))
+    return sum(rewards) / len(rewards)
 
 
 # ── instrumented components ─────────────────────────────────────────────────
@@ -505,7 +553,10 @@ class LoudCritic(CentralizedCritic):
 
 
 class LoudOptimizer(PolicyGradientOptimizer):
-    """An optimizer that narrates LLM_agg and LLM_opt."""
+    """An optimizer that narrates LLM_agg and LLM_opt, and caps policy length."""
+
+    #: Word budget for a rewritten policy; set from --max-policy-words.
+    max_words: int = 50
 
     def aggregate_gradients(self, gradients):
         merged = super().aggregate_gradients(gradients)
@@ -523,13 +574,36 @@ class LoudOptimizer(PolicyGradientOptimizer):
             "Constraint: the rewritten policy is a standing instruction applied to "
             "problems it has never seen. State general working habits only. Do not "
             "mention any function name, subject matter, or example value from the "
-            "problems above."
+            f"problems above. Keep it to at most {self.max_words} words: keep only the "
+            "habits that matter most and drop the rest."
         )
-        new_policy = super().synthesize_policy(base_policy, gradient, agent_name)
+        new_policy = self._enforce_length(
+            super().synthesize_policy(base_policy, gradient, agent_name)
+        )
         old = str(base_policy)
         print(f"    {YELLOW('LLM_opt')} {AGENT_LABEL.get(agent_name, agent_name)}: "
               f"{len(old)} -> {len(new_policy)} chars")
         return new_policy
+
+    def _enforce_length(self, policy: str) -> str:
+        """Hold a policy to ``max_words``: one compression call, then a hard cut.
+
+        Left alone, LLM_opt only ever adds advice, and the policies grow into
+        1000+ character essays within a few iterations.
+        """
+        if len(policy.split()) <= self.max_words:
+            return policy
+        try:
+            policy = self._llm_call(
+                f"Rewrite this instruction in at most {self.max_words} words. Keep "
+                "its most important habits, drop the rest, and output only the "
+                f"rewritten instruction.\n\n{policy}",
+                max_tokens=4 * self.max_words,
+            ).strip()
+        except Exception:
+            pass
+        words = policy.split()
+        return policy if len(words) <= self.max_words else " ".join(words[: self.max_words])
 
 
 # ── main ────────────────────────────────────────────────────────────────────
@@ -562,9 +636,14 @@ def main() -> None:
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--iterations", type=int, default=5)
     parser.add_argument("--model", default="gpt-4o-mini")
-    parser.add_argument("--task-ids", default=None,
-                        help=f"comma-separated HumanEval ids; default {', '.join(HARD_TASKS)}")
-    parser.add_argument("--workers", type=int, default=3, help="parallel trajectories")
+    parser.add_argument("--n-train", type=int, default=8,
+                        help="training tasks drawn from the train split each iteration")
+    parser.add_argument("--n-test", type=int, default=80,
+                        help="held-out tasks scored before training and after every iteration")
+    parser.add_argument("--seed", type=int, default=0, help="seed for the train/test split")
+    parser.add_argument("--workers", type=int, default=16, help="parallel trajectories")
+    parser.add_argument("--max-policy-words", type=int, default=50,
+                        help="word budget for each rewritten policy (default: 50)")
     args = parser.parse_args()
 
     if not os.environ.get("OPENAI_API_KEY"):
@@ -587,10 +666,12 @@ def main() -> None:
         experiment_dir="./experiments",
         log_level="WARNING",   # the run log file still records everything
     )
-    task_ids = ([t.strip() for t in args.task_ids.split(",") if t.strip()]
-                if args.task_ids else HARD_TASKS)
-    config.trajectories_per_iteration = len(task_ids)
-    config.task_ids = task_ids
+    # Greedy decoding for the actors, so a change in test accuracy reflects the
+    # policies more than the luck of a single sample.
+    config.actor_llm = replace(llm, extra_params={**llm.extra_params, "temperature": 0})
+    config.trajectories_per_iteration = args.n_train
+    config.n_test = args.n_test
+    config.split_seed = args.seed
     config.optimizer_workers = 1
 
     env = langmarl.make_env("humaneval_pair", config)
@@ -598,12 +679,13 @@ def main() -> None:
     rule("LangMARL x HumanEval: Coder + Tester", "=")
     print(f"  model            {args.model}")
     print("  paradigm         central_credit (per-agent causal attribution)")
-    print(f"  tasks/iteration  {len(env.tasks)}  (the same set every iteration)")
+    print(f"  train split      {len(env.train_tasks)} tasks, {args.n_train} drawn per iteration")
+    print(f"  test split       {len(env.test_tasks)} held-out tasks, never trained on")
     print(f"  iterations       {args.iterations}")
+    print(f"  policy budget    {args.max_policy_words} words")
     print()
     print(f"  {CYAN('CODER')}   starts as: {INITIAL_POLICIES['agent_1']!r}")
     print(f"  {MAGENTA('TESTER')}  starts as: {INITIAL_POLICIES['agent_2']!r}")
-    print(f"  tasks: {', '.join(t['task_id'] for t in env.tasks)}")
     print()
 
     trainer = langmarl.MonteCarloTrainer(
@@ -612,8 +694,13 @@ def main() -> None:
         critic=LoudCritic(config, env=env),
         optimizer=LoudOptimizer(config.get_optimizer_llm()),
     )
+    trainer.optimizer.max_words = args.max_policy_words
     # Start from the threadbare prompts rather than the library's defaults.
     trainer.checkpoint.default_policy_fn = lambda idx, n: INITIAL_POLICIES[f"agent_{idx + 1}"]
+
+    print(f"\n  {BOLD('Test accuracy before training')}  ", end="", flush=True)
+    baseline = evaluate_on(env, trainer.checkpoint.get_policies(), env.test_tasks, args.workers)
+    print(f"{baseline * 100:.1f}%  ({round(baseline * len(env.test_tasks))}/{len(env.test_tasks)})")
 
     history: list[dict] = []
     for i in range(args.iterations):
@@ -640,6 +727,7 @@ def main() -> None:
         broken = sum(1 for o in outcomes if o["draft_passed"] and not o["final_passed"])
         honest = sum(1 for o in outcomes
                      if o["draft_passed"] == o["tester_tests_passed"])
+        test_acc = evaluate_on(env, after, env.test_tasks, args.workers)
         history.append({
             "iteration": i,
             "accuracy": stats["avg_reward"],
@@ -649,10 +737,11 @@ def main() -> None:
             "repaired": repaired,
             "broken": broken,
             "honest": honest,
+            "test": test_acc,
         })
 
         cost = DIM(f"rollout cost ${stats.get('cost_usd', 0.0):.4f} cumulative")
-        print(f"\n  {BOLD('Result')}  "
+        print(f"\n  {BOLD('Train')}  "
               f"{passed}/{stats['num_episodes']} passed  "
               f"({stats['avg_reward'] * 100:.1f}%)   {cost}")
         n = stats["num_episodes"]
@@ -669,40 +758,41 @@ def main() -> None:
             print(f"    {color(AGENT_LABEL[agent])} {DIM(f'({grew:+d} chars)')}")
             print(DIM(wrap(str(after[agent]), indent="      ", limit=460)))
 
+        n_test = len(env.test_tasks)
+        print(f"    {BOLD('Test')} with the updated policies: {test_acc * 100:.1f}%  "
+              f"({round(test_acc * n_test)}/{n_test} held-out tasks)")
+
     # ── curve ───────────────────────────────────────────────────────────────
+    n_test = len(env.test_tasks)
     print()
-    rule("ACCURACY CURVE", "=")
+    rule("HELD-OUT TEST ACCURACY", "=")
     print()
-    best = max(h["accuracy"] for h in history) or 1.0
-    for h in history:
-        bar_len = int(round(h["accuracy"] / best * 40)) if best else 0
-        bar = "#" * bar_len
-        colorize = GREEN if h["accuracy"] >= best else BLUE
-        print(f"  iter {h['iteration']}  {h['accuracy'] * 100:5.1f}%  "
-              f"{h['passed']}/{h['total']}  {colorize(bar)}")
+    points = [("start", baseline)] + [(f"iter {h['iteration']}", h["test"]) for h in history]
+    best = max(acc for _, acc in points) or 1.0
+    for label, acc in points:
+        bar = "#" * int(round(acc / best * 40))
+        print(f"  {label:<7} {acc * 100:5.1f}%  {round(acc * n_test):>3}/{n_test}  "
+              f"{(GREEN if acc >= best else BLUE)(bar)}")
 
     print()
-    print(f"  {BOLD('Where the score came from')}")
-    print(DIM(f"    {'iter':<6}{'drafts ok':<12}{'repaired':<11}{'broke':<8}"
+    print(f"  {BOLD('Training batches (a fresh draw every iteration)')}")
+    print(DIM(f"    {'iter':<6}{'train':<9}{'drafts ok':<12}{'repaired':<11}{'broke':<8}"
               f"{'tester accurate':<16}"))
     for h in history:
+        train = f"{h['passed']}/{h['total']}"
         drafts = f"{h['drafts_ok']}/{h['total']}"
         accurate = f"{h['honest']}/{h['total']}"
-        print(f"    {h['iteration']:<6}{drafts:<12}"
+        print(f"    {h['iteration']:<6}{train:<9}{drafts:<12}"
               f"{h['repaired']:<11}{h['broken']:<8}{accurate:<16}")
 
-    first, last = history[0]["accuracy"], history[-1]["accuracy"]
-    delta = (last - first) * 100
+    delta = (history[-1]["test"] - baseline) * 100
     arrow = GREEN(f"+{delta:.1f} pts") if delta > 0 else (
         RED(f"{delta:.1f} pts") if delta < 0 else DIM("no change"))
-    print(f"\n  iteration 0 -> {history[-1]['iteration']}: {arrow}")
-
-    per_task = 100.0 / history[0]["total"]
+    print(f"\n  held-out test, start -> iter {history[-1]['iteration']}: {arrow}")
     print(DIM(wrap(
-        f"One task is worth {per_task:.0f} points here, so a run this small is "
-        f"noise-dominated -- treat the curve as a sanity check that the loop "
-        f"closes, not as a measurement. What this demo is for is the credit and "
-        f"policy text above.", indent="  ")))
+        f"One test task is worth {100.0 / n_test:.1f} points, and every rollout "
+        f"is a single sample, so differences of a task or two are noise.",
+        indent="  ")))
 
     print()
     rule("FINAL POLICIES", "=")
