@@ -117,14 +117,20 @@ def build_qa(force: bool = False) -> None:
     for split, url in HOTPOT_PARQUETS.items():
         parquet = cache / f"{split}.parquet"
         raw_json = out_dir / f"hotpot_dev_{split}_v1.json"
-        if raw_json.exists() and not force:
+        if raw_json.exists() and raw_json.stat().st_size > 0 and not force:
             print(f"  {raw_json.name} already present")
             continue
         if not parquet.exists() or force:
             _download(url, parquet)
         print(f"  writing {raw_json.name}")
-        with open(raw_json, "w") as f:
-            json.dump(_hotpot_records(parquet), f, ensure_ascii=False)
+        # Build the records before touching raw_json, and write through a temp
+        # file: a failure here (missing pyarrow, truncated parquet) must not
+        # leave an empty JSON that later runs mistake for a finished one.
+        records = _hotpot_records(parquet)
+        tmp = raw_json.with_suffix(".json.tmp")
+        with open(tmp, "w") as f:
+            json.dump(records, f, ensure_ascii=False)
+        tmp.replace(raw_json)
 
     print("  building tasks.jsonl")
     with open(out_dir / "hotpot_dev_distractor_v1.json") as f:
